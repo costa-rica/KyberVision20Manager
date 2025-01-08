@@ -1,6 +1,6 @@
 # Kyber Vision Web Uploader
 
-#### 0.5.0
+#### 0.6.0
 
 ## install on server
 

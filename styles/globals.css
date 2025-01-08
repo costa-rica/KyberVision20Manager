@@ -1,0 +1,27 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --dark-color: #000000;
+  --background-color: #34385a;
+  --med-text-color: #888787;
+  --light-text-color: #ffffff;
+  --highlight-red: #8b0419;
+  --highlight-green: #4ad22b;
+  --highlight-yellow: #fa9f15;
+  --header-height: 10rem;
+}
+/* header {
+  margin: 0;
+  padding: 0;
+  background-color: #4ad22b;
+  height: 0;
+} */

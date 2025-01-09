@@ -122,11 +122,11 @@ export default function UploadVideo() {
 
     // Progress handler
     xhr.upload.onprogress = (event) => {
-      console.log("in xhr.upload.onprogress = (event) => {");
+      // console.log("in xhr.upload.onprogress = (event) => {");
       if (event.lengthComputable) {
         const progress = Math.round((event.loaded / event.total) * 100);
 
-        console.log(`progress: ${progress}`);
+        // console.log(`progress: ${progress}`);
         setUploadProgress(progress); // Update progress
       }
     };

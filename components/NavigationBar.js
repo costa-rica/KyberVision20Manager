@@ -43,8 +43,6 @@ export default function NavigationBar() {
     <nav className="nav-custom">
       <div className={styles.divHeaderTop}>
         <div className={styles.divHeaderTopLeft}>
-          {/* <h1 className={styles.h1AppName}>The 404 Server Manager</h1> */}
-          {/* <h2 className={styles.h2MachineName}>{user.machineName}</h2> */}
           <Image
             src="/images/KyberV2Shiny.png"
             width={315}
@@ -52,6 +50,7 @@ export default function NavigationBar() {
             alt="Kyber Vision Logo"
           />
           <h2 className={styles.h2MachineName}>{userReducer.email}</h2>
+          <h2 className={styles.h2MachineName}>API URL: {process.env.NEXT_PUBLIC_API_BASE_URL}</h2>
         </div>
         <div className={styles.divHeaderRight}>
           <button

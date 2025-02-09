@@ -16,7 +16,7 @@ export default function Login() {
   useEffect(() => {
     if (userReducer.token) {
       // Redirect if token exists
-      router.push("/uploader");
+      router.push("/admin-db");
     }
   }, [userReducer]); // Run effect if token changes
 
@@ -46,7 +46,8 @@ export default function Login() {
       dispatch(loginUser(resJson));
       console.log(resJson);
       dispatch(loginUser(resJson));
-      router.push("/uploader");
+      // router.push("/uploader");
+      router.push("/admin-db");
     } else {
       window.alert(`There was a server error: ${response.status}`);
     }

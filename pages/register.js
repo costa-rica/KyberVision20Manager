@@ -47,7 +47,7 @@ export default function Register() {
       console.log(resJson);
       dispatch(loginUser(resJson));
       alert("success ✅️");
-      router.push("/uploader");
+      router.push("/admin-db");
     } else if (response.status === 400 || response.status === 401) {
       const resJson = await response.json();
       alert(resJson.message);

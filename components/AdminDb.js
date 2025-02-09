@@ -17,6 +17,7 @@ export default function AdminDb() {
   const fetchData = async (tableName) => {
     try {
       const response = await fetch(`${API_BASE_URL}/admin-db/${tableName}`);
+      console.log(`url called: ${API_BASE_URL}/admin-db/${tableName}`)
       const result = await response.json();
 
       if (result.result && result.data.length > 0) {

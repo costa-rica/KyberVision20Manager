@@ -72,6 +72,7 @@ export default function NavigationBar() {
           >
             <li className={styles.divHeaderRightLi}>
               <button onClick={() => router.push("/uploader")}>Upload</button>
+              <button onClick={() => router.push("/admin-db")}>Admin Database</button>
               <button onClick={() => router.push("/versions")}>Versions</button>
               <button onClick={() => pressedLogoutUser()}>Logout</button>
             </li>

@@ -52,14 +52,16 @@ export default function UploadVideo() {
       const resJson = await response.json();
 
       // const statuses = {};
-      for (const elem of resJson.videos) {
-        console.log(`checking for: ${elem.filename} `);
+      for (const elem in resJson) {
+        // console.log(`checking in resJson.videos Filename: ${elem.Filename} `);
+        console.log(`elem: ${elem}`)
       }
       // setDownloadStatuses(statuses);
 
       const videosObjArray = resJson.videos.map((elem, i) => {
-        console.log(`creating object for: ${elem.filename}`);
-        console.log(" -- What is the setTimeStamps ?");
+        console.log(`video downloaded filename: ${elem.filename}`);
+        console.log(`video downloaded id: ${elem.id}`);
+        console.log("video downloaded timestamp:");
         console.log(elem.setTimeStamps);
         console.log(typeof elem.setTimeStamps);
         return {
@@ -69,7 +71,7 @@ export default function UploadVideo() {
           matchName: `${elem.matchName}`,
           scripted: false,
           durationOfMatch: elem.durationString,
-          filename: elem.filename,
+          filename: elem.Filename,
         };
       });
       setVideosList(videosObjArray);
@@ -99,15 +101,17 @@ export default function UploadVideo() {
 
     const formData = new FormData();
     formData.append("video", file);
-    formData.append("leagueId", leagueId);
-    formData.append("teamIdAnalyzed", teamIdAnalyzed);
-    formData.append("teamIdOpponent", teamIdOpponent);
-    formData.append("dateOfMatch", dateOfMatch);
+    formData.append("Match_ID", 1);
+
+    // formData.append("leagueId", leagueId);
+    // formData.append("teamIdAnalyzed", teamIdAnalyzed);
+    // formData.append("teamIdOpponent", teamIdOpponent);
+    // formData.append("dateOfMatch", dateOfMatch);
     // formData.append("setTimeStamps", []);
 
     const xhr = new XMLHttpRequest();
 
-    const api_url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/videos/upload-video`;
+    const api_url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/videos/upload`;
     console.log(`sending POST request to ${api_url}`);
     xhr.open("POST", api_url);
 

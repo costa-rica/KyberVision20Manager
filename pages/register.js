@@ -30,10 +30,10 @@ export default function Register() {
       return;
     }
 
-    const bodyObj = { email, password };
+    const bodyObj = { EmailAddress: email, Password:password, Login: email.split('@')[0] };
     // window.alert(`the api url: ${process.env.NEXT_PUBLIC_API_BASE_URL}`);
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/register`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

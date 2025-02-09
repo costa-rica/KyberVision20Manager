@@ -1,0 +1,58 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    min-height: 100vh;
+    padding: 4rem 0;
+  }
+  .main {
+    text-align: center;
+  }
+  
+  .title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .dropdownContainer {
+    margin-bottom: 20px;
+  }
+  
+  .dropdown {
+    padding: 8px;
+    font-size: 16px;
+  }
+  
+  .tableContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .table {
+    border-collapse: collapse;
+    width: 80%;
+  }
+  
+  .table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .table th {
+    background-color: #f4f4f4;
+  }
+  /* .title {
+    line-height: 1.15;
+    font-size: 4rem;
+  }
+  
+  .title a {
+    color: #0070f3;
+    text-decoration: none;
+  }
+  
+  .title a:hover, .title a:focus, .title a:active {
+    text-decoration: underline;
+  } */

@@ -41,6 +41,7 @@ export default function Login() {
     console.log("received response");
     if (response.status == 200) {
       const resJson = await response.json();
+      resJson.email=email
       console.log(resJson);
       dispatch(loginUser(resJson));
       console.log(resJson);

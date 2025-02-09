@@ -3,7 +3,7 @@ import styles from "../styles/AdminDb.module.css";
 import TemplateView from "./TemplateView";
 
 export default function AdminDb() {
-  const [selectedTable, setSelectedTable] = useState("Video"); // Default selection
+  const [selectedTable, setSelectedTable] = useState("User"); // Default selection
   const [data, setData] = useState([]);
   const [columns, setColumns] = useState([]);
 
@@ -49,8 +49,8 @@ export default function AdminDb() {
             value={selectedTable}
             onChange={(e) => setSelectedTable(e.target.value)}
           >
-            <option value="Video">Video</option>
             <option value="User">User</option>
+            <option value="Video">Video</option>
             <option value="Action">Action</option>
             <option value="CompetitionContract">CompetitionContract</option>
             <option value="Complex">Complex</option>

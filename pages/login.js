@@ -25,9 +25,12 @@ export default function Login() {
   };
 
   const handleClickLogin = async () => {
-    console.log("Login ---> API URL");
-    console.log(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/login`);
-    console.log("- handleClickReg 👀");
+    console.log(
+      "Login ---> API URL:",
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/login`
+    );
+    console.log("- handleClickLogin 👀");
+
     const bodyObj = { email, password };
 
     const response = await fetch(
@@ -38,21 +41,60 @@ export default function Login() {
         body: JSON.stringify(bodyObj),
       }
     );
-    console.log("received response");
-    if (response.status == 200) {
-      const resJson = await response.json();
-      resJson.email=email
-      console.log(resJson);
+
+    console.log("Received response:", response.status);
+
+    let resJson = null;
+    const contentType = response.headers.get("Content-Type");
+
+    if (contentType?.includes("application/json")) {
+      resJson = await response.json();
+    }
+
+    if (response.ok) {
+      resJson.email = email;
       dispatch(loginUser(resJson));
-      console.log(resJson);
-      dispatch(loginUser(resJson));
-      // router.push("/uploader");
       router.push("/admin-db");
     } else {
-      window.alert(`There was a server error: ${response.status}`);
+      const errorMessage =
+        resJson?.error || `There was a server error: ${response.status}`;
+      alert(errorMessage);
     }
-    console.log("🚨 after the fetch ");
   };
+
+  // const handleClickLogin = async () => {
+  //   console.log("Login ---> API URL");
+  //   console.log(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/login`);
+  //   console.log("- handleClickReg 👀");
+  //   const bodyObj = { email, password };
+
+  //   const response = await fetch(
+  //     `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/login`,
+  //     {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(bodyObj),
+  //     }
+  //   );
+  //   console.log("received response");
+  //   if (response.status == 200) {
+  //     const resJson = await response.json();
+  //     resJson.email = email;
+  //     console.log(resJson);
+  //     dispatch(loginUser(resJson));
+  //     console.log(resJson);
+  //     dispatch(loginUser(resJson));
+  //     // router.push("/uploader");
+  //     router.push("/admin-db");
+  //   } else if (response.status == 404) {
+  //     window.alert(`User not found`);
+  //   } else if (response.status == 401) {
+  //     window.alert(`Incorrect password`);
+  //   } else {
+  //     window.alert(`There was a server error: ${response.status}`);
+  //   }
+  //   console.log("🚨 after the fetch ");
+  // };
 
   const handleClickToReg = () => router.push("/register"); //eg.history.push('/login');
 

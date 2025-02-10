@@ -26,12 +26,16 @@ export default function Register() {
       return;
     }
     if (password.length < 3) {
-      alert("Please enter password with at least 3 chars.");
+      alert("Please enter a password with at least 3 characters.");
       return;
     }
 
-    const bodyObj = { EmailAddress: email, Password:password, Login: email.split('@')[0] };
-    // window.alert(`the api url: ${process.env.NEXT_PUBLIC_API_BASE_URL}`);
+    const bodyObj = {
+      EmailAddress: email,
+      Password: password,
+      Login: email.split("@")[0],
+    };
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/`,
       {
@@ -40,21 +44,23 @@ export default function Register() {
         body: JSON.stringify(bodyObj),
       }
     );
-    console.log("received response: ", response.status);
-    if (response.status == 200) {
-      const resJson = await response.json();
-      console.log("Got a sucessful 200 response ✅️");
-      console.log(resJson);
-      dispatch(loginUser(resJson));
-      alert("success ✅️");
-      router.push("/admin-db");
-    } else if (response.status === 400 || response.status === 401) {
-      const resJson = await response.json();
-      alert(resJson.message);
-    } else {
-      alert(`There was a server error: ${response.status}`);
+
+    console.log("Received response:", response.status);
+
+    let resJson = null;
+    const contentType = response.headers.get("Content-Type");
+
+    if (contentType?.includes("application/json")) {
+      resJson = await response.json();
     }
-    console.log("🚨 after the fetch ");
+    if (response.ok) {
+      dispatch(loginUser(resJson));
+      alert("Success ✅️");
+      router.push("/admin-db");
+    } else {
+      const errorMessage = resJson?.error || `Error: ${response.status}`;
+      alert(errorMessage);
+    }
   };
 
   return (

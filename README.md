@@ -2,6 +2,13 @@
 
 #### 0.7.0
 
+## .env
+
+```
+NEXT_PUBLIC_API_BASE_URL=https://api.kv07.dashanddata.com
+NEXT_PUBLIC_APP_NAME=KyberVisionAPI07Manager
+```
+
 ## install on server
 
 ### pm2 config

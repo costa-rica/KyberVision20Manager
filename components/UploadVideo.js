@@ -54,7 +54,7 @@ export default function UploadVideo() {
       // const statuses = {};
       for (const elem in resJson) {
         // console.log(`checking in resJson.videos Filename: ${elem.Filename} `);
-        console.log(`elem: ${elem}`)
+        console.log(`elem: ${elem}`);
       }
       // setDownloadStatuses(statuses);
 
@@ -68,10 +68,10 @@ export default function UploadVideo() {
           id: `${elem.id}`,
           name: `${elem.matchName}`,
           date: elem.date,
-          matchName: `${elem.matchName}`,
+          matchName: `${elem.matchId}`,
           scripted: false,
           durationOfMatch: elem.durationString,
-          filename: elem.Filename,
+          filename: elem.filename,
         };
       });
       setVideosList(videosObjArray);
@@ -101,7 +101,7 @@ export default function UploadVideo() {
 
     const formData = new FormData();
     formData.append("video", file);
-    formData.append("Match_ID", 1);
+    formData.append("matchId", 1);
 
     // formData.append("leagueId", leagueId);
     // formData.append("teamIdAnalyzed", teamIdAnalyzed);

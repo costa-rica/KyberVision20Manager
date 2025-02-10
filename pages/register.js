@@ -31,13 +31,13 @@ export default function Register() {
     }
 
     const bodyObj = {
-      EmailAddress: email,
-      Password: password,
-      Login: email.split("@")[0],
+      email,
+      password,
+      username: email.split("@")[0],
     };
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/register`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

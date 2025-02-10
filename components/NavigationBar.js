@@ -37,6 +37,7 @@ export default function NavigationBar() {
   const pressedLogoutUser = () => {
     dispatch(logoutUser());
     alert("Logged out");
+    router.push("/login");
   };
 
   return (
@@ -50,7 +51,9 @@ export default function NavigationBar() {
             alt="Kyber Vision Logo"
           />
           <h2 className={styles.h2MachineName}>{userReducer.email}</h2>
-          <h2 className={styles.h2MachineName}>API URL: {process.env.NEXT_PUBLIC_API_BASE_URL}</h2>
+          <h2 className={styles.h2MachineName}>
+            API URL: {process.env.NEXT_PUBLIC_API_BASE_URL}
+          </h2>
         </div>
         <div className={styles.divHeaderRight}>
           <button
@@ -71,7 +74,9 @@ export default function NavigationBar() {
           >
             <li className={styles.divHeaderRightLi}>
               <button onClick={() => router.push("/uploader")}>Upload</button>
-              <button onClick={() => router.push("/admin-db")}>Admin Database</button>
+              <button onClick={() => router.push("/admin-db")}>
+                Admin Database
+              </button>
               <button onClick={() => router.push("/versions")}>Versions</button>
               <button onClick={() => pressedLogoutUser()}>Logout</button>
             </li>

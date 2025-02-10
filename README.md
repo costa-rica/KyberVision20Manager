@@ -1,12 +1,12 @@
 # Kyber Vision API Manager
 
-#### 0.7.0
+#### 0.8.0
 
 ## .env
 
 ```
-NEXT_PUBLIC_API_BASE_URL=https://api.kv07.dashanddata.com
-NEXT_PUBLIC_APP_NAME=KyberVisionAPI07Manager
+NEXT_PUBLIC_API_BASE_URL=https://api.kv08.dashanddata.com
+NEXT_PUBLIC_APP_NAME=KyberVisionAPI08Manager
 ```
 
 ## install on server
@@ -15,7 +15,7 @@ NEXT_PUBLIC_APP_NAME=KyberVisionAPI07Manager
 
 ```
     {
-      name: "KyberVisionAPI07Manager",
+      name: "KyberVisionAPI08Manager",
       script: "yarn",
       args: "start",
       interpreter: "/bin/bash",

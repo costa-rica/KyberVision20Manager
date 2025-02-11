@@ -24,7 +24,7 @@ function App({ Component, pageProps }) {
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <Head>
-            <title>KV API07 Manager</title>
+            <title>KV API08 Manager</title>
             <meta property="og:title" content="K V Uploader 07" />
             <meta
               property="og:description"

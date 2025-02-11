@@ -88,7 +88,7 @@ export default function NavigationBar() {
                   <ul className={styles.uploadDropdownMenu}>
                     <li>
                       <button onClick={() => router.push("/uploader")}>
-                        Uploader
+                        Upload Video
                       </button>
                     </li>
                     <li>

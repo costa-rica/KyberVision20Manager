@@ -82,28 +82,28 @@ export default function NavigationBar() {
             ref={menuRef}
           >
             <li className={styles.divHeaderRightLi}>
+              <button onClick={() => router.push("/admin-db")}>
+                Admin Database
+              </button>
+              <button onClick={() => router.push("/versions")}>Versions</button>
+              <button onClick={() => pressedLogoutUser()}>Logout</button>
               <div className={styles.uploadDropdown} ref={uploadMenuRef}>
                 <button onClick={toggleUploadDropdown}>Select ▼</button>
                 {uploadDropdownOpen && (
                   <ul className={styles.uploadDropdownMenu}>
                     <li>
-                      <button onClick={() => router.push("/uploader")}>
+                      <button onClick={() => router.push("/admin-db/Videos")}>
                         Upload Video
                       </button>
                     </li>
                     <li>
-                      <button onClick={() => router.push("/matches")}>
+                      <button onClick={() => router.push("/admin-db/Matches")}>
                         Matches
                       </button>
                     </li>
                   </ul>
                 )}
               </div>
-              <button onClick={() => router.push("/admin-db")}>
-                Admin Database
-              </button>
-              <button onClick={() => router.push("/versions")}>Versions</button>
-              <button onClick={() => pressedLogoutUser()}>Logout</button>
             </li>
           </ul>
         </div>

@@ -73,6 +73,26 @@
   display: flex; /* Show menu when toggled */
 }
 
+.uploadDropdown {
+  position: relative; /* Keeps the dropdown button inside the nav */
+}
+
+.uploadDropdownMenu {
+  position: absolute; /* Positions the dropdown absolutely */
+  top: 100%; /* Makes it appear below the button */
+  right: 0;
+  background-color: white; /* Separate background */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  list-style: none;
+  /* z-index: 1000; 
+  width: 200px; 
+  max-height: 300px; 
+  overflow-y: auto;  */
+}
+
+
 /* Large screens (media query) */
 @media (min-width: 768px) {
   .hamburgerMenu {

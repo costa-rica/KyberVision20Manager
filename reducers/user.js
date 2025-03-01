@@ -17,8 +17,8 @@ export const userSlice = createSlice({
     loginUser: (state, action) => {
       console.log(`- dans Redux: loginUser 🔔`);
       state.value.token = action.payload.token;
-      state.value.username = action.payload.username || "some_name";
-      state.value.email = action.payload.email || "some_name@mail.com";
+      state.value.username = action.payload.user.username || "some_name";
+      state.value.email = action.payload.user.email || "some_name@mail.com";
       console.log(`- finished loginUser 🏁`);
     },
     setNewVideoId: (state, action) => {

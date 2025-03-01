@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "../styles/AdminDb.module.css";
 import TemplateView from "./TemplateView";
+import DynamicDbTable from "./subcomponents/DynamicDbTable";
 
 export default function AdminDb() {
   const [selectedTable, setSelectedTable] = useState("User"); // Default selection
@@ -17,7 +18,7 @@ export default function AdminDb() {
   const fetchData = async (tableName) => {
     try {
       const response = await fetch(`${API_BASE_URL}/admin-db/${tableName}`);
-      console.log(`url called: ${API_BASE_URL}/admin-db/${tableName}`)
+      console.log(`url called: ${API_BASE_URL}/admin-db/${tableName}`);
       const result = await response.json();
 
       if (result.result && result.data.length > 0) {
@@ -57,7 +58,9 @@ export default function AdminDb() {
             <option value="GroupContract">GroupContract</option>
             <option value="League">League</option>
             <option value="Match">Match</option>
-            <option value="OpponentServeTimestamp">OpponentServeTimestamp</option>
+            <option value="OpponentServeTimestamp">
+              OpponentServeTimestamp
+            </option>
             <option value="Player">Player</option>
             <option value="PlayerContract">PlayerContract</option>
             <option value="Point">Point</option>
@@ -68,7 +71,8 @@ export default function AdminDb() {
         </div>
 
         {/* Dynamic Table */}
-        <div className={styles.tableContainer}>
+        <DynamicDbTable columnNames={columns} rowData={data} />
+        {/* <div className={styles.tableContainer}>
           {columns.length > 0 ? (
             <table className={styles.table}>
               <thead>
@@ -91,7 +95,7 @@ export default function AdminDb() {
           ) : (
             <p>No data available</p>
           )}
-        </div>
+        </div> */}
       </main>
     </TemplateView>
   );
@@ -110,4 +114,3 @@ export default function AdminDb() {
 //     </TemplateView>
 //   );
 // }
-

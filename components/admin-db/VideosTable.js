@@ -1,16 +1,16 @@
-import styles from "../styles/UploadVideo.module.css";
+import styles from "../../styles/VideosTable.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { setNewVideoId } from "../reducers/user";
+// import { setNewVideoId } from "../reducers/user";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import TemplateView from "./TemplateView";
-import TableVideos from "./TableVideos";
+import TemplateView from "../TemplateView";
+import TableVideos from "../TableVideos";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faRectangleXmark,
   faCircleMinus,
 } from "@fortawesome/free-solid-svg-icons";
-export default function UploadVideo() {
+export default function VideosTable() {
   const [file, setFile] = useState(null);
   const [matchId, setMatchId] = useState("");
   const [teamIdAnalyzed, setTeamIdAnalyzed] = useState("");
@@ -207,7 +207,7 @@ export default function UploadVideo() {
       <div>
         <main className={styles.main}>
           <div className={styles.mainTop}>
-            <h1 className={styles.title}>Video Uploader</h1>
+            <h1 className={styles.title}>Manage Videos</h1>
           </div>
 
           {/* Upload Form */}

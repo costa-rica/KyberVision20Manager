@@ -26,7 +26,12 @@ export default function DynamicDbTable({
             <tr>
               <th>Select</th>
               {columnNames.map((col) => (
-                <th key={col}>{col}</th>
+                <th
+                  key={col}
+                  className={col.length > 5 ? `tdWrapAllGlobal` : null}
+                >
+                  {col}
+                </th>
               ))}
               {onDeleteRow && <th>Delete</th>}
             </tr>
@@ -43,7 +48,7 @@ export default function DynamicDbTable({
                   </button>
                 </td>
                 {columnNames.map((col) => (
-                  <td key={col} className={styles.tdWrapAll}>
+                  <td key={col} className={styles.tdCustom}>
                     {row[col] !== null && row[col] !== undefined
                       ? row[col]
                       : "-"}

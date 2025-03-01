@@ -26,7 +26,7 @@ body {
   background-color: #4ad22b;
   height: 0;
 } */
-.tdWrapAll {
+.tdWrapAllGlobal {
   word-wrap: break-word; /* Ensure long words or URLs wrap */
   overflow-wrap: break-word; /* Ensure wrapping in modern browsers */
   word-break: break-all; /* Break words at arbitrary points for extremely long text */

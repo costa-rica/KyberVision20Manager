@@ -23,8 +23,8 @@
   font-weight: bold;
 }
 
-.tdWrapAll {
-  white-space: nowrap;
+.tdCustom {
+  /* white-space: nowrap; */
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 150px;

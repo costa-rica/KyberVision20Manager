@@ -11,6 +11,7 @@ export default function MatchesTable() {
     teamIdAnalyzed: "",
     teamIdOpponent: "",
     teamIdWinner: "",
+    groupContractId: "",
     matchDate: "",
     city: "",
   });
@@ -55,7 +56,7 @@ export default function MatchesTable() {
     e.preventDefault();
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/matches/create`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/matches/update-or-create`,
       {
         method: "POST",
         headers: {
@@ -73,6 +74,7 @@ export default function MatchesTable() {
         teamIdAnalyzed: "",
         teamIdOpponent: "",
         teamIdWinner: "",
+        groupContractId: "",
         matchDate: "",
         city: "",
       });
@@ -103,7 +105,9 @@ export default function MatchesTable() {
   const handleSelectRow = (id) => {
     const selectedRow = matchesList.find((row) => row.id === id);
     if (selectedRow) {
-      setFormData(selectedRow);
+      // Exclude "createdAt" and "updatedAt" keys
+      const { createdAt, updatedAt, ...filteredRow } = selectedRow;
+      setFormData(filteredRow);
     }
   };
 
@@ -120,20 +124,22 @@ export default function MatchesTable() {
             <form onSubmit={handleSubmit} className={styles.form}>
               {Object.keys(formData).map((field) => {
                 const isDateField = field.toLowerCase().includes("date"); // Detects "date" in name
-                return (
-                  <div key={field} className={styles.inputGroup}>
-                    <label htmlFor={field}>{field}:</label>
-                    <input
-                      type={isDateField ? "date" : "text"} // Sets type dynamically
-                      className={styles.inputField}
-                      onChange={(e) =>
-                        setFormData({ ...formData, [field]: e.target.value })
-                      }
-                      value={formData[field]}
-                      required={field !== "teamIdWinner"}
-                    />
-                  </div>
-                );
+                if (field !== "createdAt" || field !== "updatedAt") {
+                  return (
+                    <div key={field} className={styles.inputGroup}>
+                      <label htmlFor={field}>{field}:</label>
+                      <input
+                        type={isDateField ? "date" : "text"} // Sets type dynamically
+                        className={styles.inputField}
+                        onChange={(e) =>
+                          setFormData({ ...formData, [field]: e.target.value })
+                        }
+                        value={formData[field]}
+                        required={field !== "id"}
+                      />
+                    </div>
+                  );
+                }
               })}
               <button type="submit" className={styles.submitButton}>
                 Create Match

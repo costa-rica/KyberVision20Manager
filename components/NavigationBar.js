@@ -101,6 +101,21 @@ export default function NavigationBar() {
                         Matches
                       </button>
                     </li>
+                    <li>
+                      <button onClick={() => router.push("/admin-db/Leagues")}>
+                        Leagues
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={() => router.push("/admin-db/Teams")}>
+                        Teams
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={() => router.push("/admin-db/Players")}>
+                        Players
+                      </button>
+                    </li>
                   </ul>
                 )}
               </div>

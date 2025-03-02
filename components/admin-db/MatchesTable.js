@@ -117,6 +117,7 @@ export default function MatchesTable() {
         <main className={styles.main}>
           <div className={styles.mainTop}>
             <h1 className={styles.title}>Create Match</h1>
+            <div>* Note: For new rows do not enter a value for "id"</div>
           </div>
 
           {/* Match Form */}

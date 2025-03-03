@@ -28,7 +28,7 @@ export default function PlayersTable() {
 
   const fetchPlayersList = async () => {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin-db/Player`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin-db/table/Player`,
       {
         headers: { Authorization: `Bearer ${userReducer.token}` },
       }
@@ -77,6 +77,7 @@ export default function PlayersTable() {
       alert(`Error: ${errorJson.error || response.statusText}`);
     }
   };
+
   //   const handleSubmit = async (e) => {
   //     e.preventDefault();
 

@@ -24,15 +24,15 @@ function App({ Component, pageProps }) {
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <Head>
-            <title>KV API09 Manager</title>
-            <meta property="og:title" content="K V Uploader 09" />
+            <title>KV API10 Manager</title>
+            <meta property="og:title" content="K V Uploader 10" />
             <meta
               property="og:description"
               content="KV website to assist with the mobile and mobile API development"
             />
             <meta
               property="og:image"
-              content="https://kv05-uploader.dashanddata.com/images/KyberV2Shiny.png"
+              content="https://kv10-uploader.dashanddata.com/images/KyberV2Shiny.png"
             />
           </Head>
           <Component {...pageProps} />

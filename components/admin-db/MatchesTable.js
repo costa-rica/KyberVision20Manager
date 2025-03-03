@@ -33,7 +33,7 @@ export default function MatchesTable() {
   const fetchMatchesList = async () => {
     console.log("in fetchMatchesList");
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin-db/Match`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin-db/table/Match`,
       {
         headers: { Authorization: `Bearer ${userReducer.token}` },
       }

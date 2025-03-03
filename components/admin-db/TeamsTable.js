@@ -29,7 +29,7 @@ export default function TeamsTable() {
 
   const fetchTeamsList = async () => {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin-db/Team`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin-db/table/Team`,
       {
         headers: { Authorization: `Bearer ${userReducer.token}` },
       }

@@ -28,7 +28,7 @@ export default function LeagueTable() {
 
   const fetchLeaguesList = async () => {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin-db/League`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin-db/table/League`,
       {
         headers: { Authorization: `Bearer ${userReducer.token}` },
       }

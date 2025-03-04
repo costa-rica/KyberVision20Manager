@@ -24,7 +24,7 @@ export default function DynamicDbTable({
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>Select</th>
+              {selectedRow && <th>Select</th>}
               {columnNames.map((col) => (
                 <th
                   key={col}
@@ -39,14 +39,16 @@ export default function DynamicDbTable({
           <tbody>
             {rowData.map((row, rowIndex) => (
               <tr key={rowIndex}>
-                <td>
-                  <button
-                    className={styles.selectButton}
-                    onClick={() => handleSelectRow(row.id)}
-                  >
-                    Select
-                  </button>
-                </td>
+                {selectedRow && (
+                  <td>
+                    <button
+                      className={styles.selectButton}
+                      onClick={() => handleSelectRow(row.id)}
+                    >
+                      Select
+                    </button>
+                  </td>
+                )}
                 {columnNames.map((col) => (
                   <td key={col} className={styles.tdCustom}>
                     {row[col] !== null && row[col] !== undefined

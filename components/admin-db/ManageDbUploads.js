@@ -139,21 +139,24 @@ export default function ManageDbUploads() {
 
           <div className={styles.divImportData}>
             <p>
-              Upload a .zip file of your database. The .zip file must include
-              .csv files named after the tables.
+              Upload a .zip file of your database. <u>Rules for uploads:</u>
             </p>
             <ul>
               <li>Only .zip files are accepted.</li>
               <li>Missing tables will be ignored.</li>
-              <li>Empty cell values are ok</li>
+              <li>Empty cell values are ok (except for id column)</li>
               <li>
                 Must have an id for each row that is not already in the table
               </li>
               <li>No missing columns.</li>
               <li>
-                All columns must be in the table, in camelCase - e.g.
-                "firstName" where the first letter is lower case but all
-                subsequent words begin with uppercase.
+                Contrary to db schema, names of columns in CSV should be in
+                camelCase but that is how the Java Model properties are named.
+              </li>
+              <li>
+                Also, names of files should follow naming conventions found in
+                "Row Counts by Table" (yes, also contrary to db schema). They
+                are the names of the JavaScript Model objects - all singular.
               </li>
             </ul>
 

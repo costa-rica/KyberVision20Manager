@@ -1,73 +1,80 @@
 .main {
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
-    min-height: 100vh;
-    padding: 4rem 0;
-  }
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  min-height: 100vh;
+  padding: 4rem 0;
+}
 
-  .divMain {
-width: 80%;
-  }
+.divMain {
+  width: 80%;
+}
 
-  .divLinks {
-    display: flex;
-    margin-bottom: 20px;
-  }
+.divLinks {
+  display: flex;
+  margin-bottom: 20px;
+}
 
-  .divDropdown {
-    display: flex;
-    justify-content: center;
-  }
-  .dropdownContainer {
-    margin-bottom: 20px;
-  }
-  
-  .dropdown {
-    padding: 8px;
-    font-size: 16px;
-  }
-  
-  .tableContainer {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  .table {
-    border-collapse: collapse;
-    width: 80%;
-  }
-  
-  .table th, .table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-  .table th {
-    background-color: #f4f4f4;
-  }
+.divDropdown {
+  display: flex;
+  justify-content: center;
+}
+.dropdownContainer {
+  margin-bottom: 20px;
+}
 
-  .liBackups{
-padding:.25rem
-  }
-  .liBackups > button{
-    /* display: flex; */
+.dropdown {
+  padding: 8px;
+  font-size: 16px;
+}
 
-     margin-left: 2rem; 
-   
-  }
-.btnDelete{
+.tableContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 80%;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table th {
+  background-color: #f4f4f4;
+}
+
+.liBackups {
+  padding: 0.25rem;
+}
+.btnDownload {
+  background: none;
+  border: none;
+  color: blue;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.btnDownload:hover {
+  color: darkblue;
+}
+.btnDelete {
   background-color: red;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  margin-left: 1rem;
 }
-
-
 
 .form {
   width: 100%;
@@ -107,7 +114,6 @@ padding:.25rem
 .submitButton:hover {
   background-color: #0056b3;
 }
-
 
 /* Modal: ManageDbUploads */
 .modal {

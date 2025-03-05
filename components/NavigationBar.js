@@ -116,6 +116,13 @@ export default function NavigationBar() {
                         Players
                       </button>
                     </li>
+                    <li>
+                      <button
+                        onClick={() => router.push("/admin-db/PlayerContracts")}
+                      >
+                        Player Contracts
+                      </button>
+                    </li>
                   </ul>
                 )}
               </div>

@@ -115,9 +115,16 @@ export default function ManageDbUploads() {
       if (response.status !== 200) {
         console.error("Upload failed:", response.status);
         // alert("Upload failed.");
-        const errorMessage =
-          resJson?.message || `There was a server error: ${response.status}`;
-        alert(errorMessage);
+
+        if (resJson?.failedOnTableName) {
+          alert(
+            `${resJson.error}, but failed on table: ${resJson.failedOnTableName}`
+          );
+        } else {
+          const errorMessage =
+            resJson?.error || `There was a server error: ${response.status}`;
+          alert(errorMessage);
+        }
       } else {
         alert("Upload successful!");
       }

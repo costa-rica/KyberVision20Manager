@@ -36,7 +36,14 @@ export default function VideosTable() {
     console.log(`API URL: ${process.env.NEXT_PUBLIC_API_BASE_URL}/videos`);
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/videos`
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/videos`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userReducer.token}`,
+        },
+      }
     );
 
     if (response.status === 200) {

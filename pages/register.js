@@ -54,9 +54,15 @@ export default function Register() {
       resJson = await response.json();
     }
     if (response.ok) {
-      dispatch(loginUser(resJson));
-      alert("Success ✅️");
-      router.push("/admin-db");
+      if (resJson.user.isAdminForKvManagerWebsite) {
+        // resJson.email = email;
+        dispatch(loginUser(resJson));
+        router.push("/admin-db");
+      } else {
+        alert(
+          "You have been registered but are still not authorized to login. Contact Kyber Vision for access."
+        );
+      }
     } else {
       const errorMessage = resJson?.error || `Error: ${response.status}`;
       alert(errorMessage);

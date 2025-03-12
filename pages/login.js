@@ -52,9 +52,13 @@ export default function Login() {
     }
 
     if (response.ok) {
-      resJson.email = email;
-      dispatch(loginUser(resJson));
-      router.push("/admin-db");
+      if (resJson.user.isAdminForKvManagerWebsite) {
+        resJson.email = email;
+        dispatch(loginUser(resJson));
+        router.push("/admin-db");
+      } else {
+        alert("You are not authorized to login.");
+      }
     } else {
       const errorMessage =
         resJson?.error || `There was a server error: ${response.status}`;

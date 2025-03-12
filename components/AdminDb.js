@@ -25,25 +25,58 @@ export default function AdminDb() {
           headers: { Authorization: `Bearer ${userReducer.token}` },
         }
       );
-      console.log(`url called: ${API_BASE_URL}/admin-db/table/${tableName}`);
+
+      console.log(`Response status: ${response.status}`);
+
+      if (!response.ok) {
+        const errorText = await response.text(); // Log response text for debugging
+        throw new Error(`Server Error: ${errorText}`);
+      }
+
       const result = await response.json();
+      console.log("Fetched Data:", result);
 
-      if (result.result && result.data.length > 0) {
+      if (result.result && Array.isArray(result.data)) {
         setData(result.data);
-
-        // Extract column names dynamically
-        const columnNames = Object.keys(result.data[0]);
-        setColumns(columnNames);
+        setColumns(result.data.length > 0 ? Object.keys(result.data[0]) : []);
       } else {
         setData([]);
         setColumns([]);
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching data:", error.message);
       setData([]);
       setColumns([]);
     }
   };
+
+  // const fetchData = async (tableName) => {
+  //   try {
+  //     const response = await fetch(
+  //       `${API_BASE_URL}/admin-db/table/${tableName}`,
+  //       {
+  //         headers: { Authorization: `Bearer ${userReducer.token}` },
+  //       }
+  //     );
+  //     console.log(`url called: ${API_BASE_URL}/admin-db/table/${tableName}`);
+  //     const result = await response.json();
+
+  //     if (result.result && result.data.length > 0) {
+  //       setData(result.data);
+
+  //       // Extract column names dynamically
+  //       const columnNames = Object.keys(result.data[0]);
+  //       setColumns(columnNames);
+  //     } else {
+  //       setData([]);
+  //       setColumns([]);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //     setData([]);
+  //     setColumns([]);
+  //   }
+  // };
 
   return (
     <TemplateView>

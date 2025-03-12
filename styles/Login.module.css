@@ -49,7 +49,7 @@
   position: absolute;
   font-size: 1.5rem;
   transform: translate(-3rem, 1.6rem);
-  cursor: "pointer";
+  cursor: pointer;
 }
 
 .btnLogin {

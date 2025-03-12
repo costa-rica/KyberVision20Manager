@@ -59,6 +59,9 @@ export default function AdminDb() {
               <li>
                 <a href="/admin-db/manage-db-uploads">Manage DB Uploads</a>
               </li>
+              <li>
+                <a href="/admin-db/manage-db-deletes">Manage DB Deletes</a>
+              </li>
             </ul>
           </div>
 

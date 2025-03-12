@@ -97,12 +97,15 @@ export default function ManageDbDeletes() {
                       <td>{item.tableName}</td>
                       <td>{item.rowCount}</td>
                       <td>
-                        <button
-                          className={styles.btnDelete}
-                          onClick={() => confirmDeleteTable(item.tableName)}
-                        >
-                          Delete Table
-                        </button>
+                        {item.tableName != "User" &&
+                          item.tableName != "GroupContract" && (
+                            <button
+                              className={styles.btnDelete}
+                              onClick={() => confirmDeleteTable(item.tableName)}
+                            >
+                              Delete Table
+                            </button>
+                          )}
                       </td>
                     </tr>
                   ))}
@@ -115,9 +118,11 @@ export default function ManageDbDeletes() {
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <p>Are you sure you want to delete the table '{selectedTable}'?</p>
+
             <button className={styles.btnDelete} onClick={deleteTable}>
               Yes
             </button>
+
             <button
               className={styles.btnCancel}
               onClick={() => setShowModal(false)}

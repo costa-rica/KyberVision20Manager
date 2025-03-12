@@ -23,7 +23,7 @@
   text-align: center;
   justify-content: space-between;
   padding: 1rem;
-  background-color: var(--med-text-color);
+  /* background-color: var(--med-text-color); <-- THIS is the background > handled in NavigationBar.js */
 }
 
 .divHeaderTopLeft {
@@ -92,7 +92,6 @@
   overflow-y: auto;  */
 }
 
-
 /* Large screens (media query) */
 @media (min-width: 768px) {
   .hamburgerMenu {
@@ -148,33 +147,3 @@
     border-radius: 12px 12px 0 0;
   }
 }
-
-/* Old */
-/* .divHeaderTopLeft {
-  text-align: center;
-}
-.divHeaderRight {
-  position: absolute;
-  top: var(--header-height);
-  right: 0;
-  transform: translate(-5vw, -100%);
-
-}
-.divHeaderRightUl {
-  display: flex;
-  list-style-type: none;
-  padding-bottom: 0;
-  margin-bottom: 0;
-}
-.btnNav {
-  text-decoration: none;
-  background-color: var(--light-text-color);
-  padding: 1rem 1rem 0 1rem;
-  border-radius: 12px 12px 0 0;
-}
-.btnNavActive {
-  text-decoration: none;
-  background-color: var(--highlight-yellow);
-  padding: 1rem 1rem 0 1rem;
-  border-radius: 12px 12px 0 0;
-} */

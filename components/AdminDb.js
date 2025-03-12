@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import styles from "../styles/AdminDb.module.css";
 import TemplateView from "./TemplateView";
 import DynamicDbTable from "./subcomponents/DynamicDbTable";
+import { useSelector } from "react-redux";
 
 export default function AdminDb() {
+  const userReducer = useSelector((state) => state.user.value);
   const [selectedTable, setSelectedTable] = useState("User"); // Default selection
   const [data, setData] = useState([]);
   const [columns, setColumns] = useState([]);
@@ -18,7 +20,10 @@ export default function AdminDb() {
   const fetchData = async (tableName) => {
     try {
       const response = await fetch(
-        `${API_BASE_URL}/admin-db/table/${tableName}`
+        `${API_BASE_URL}/admin-db/table/${tableName}`,
+        {
+          headers: { Authorization: `Bearer ${userReducer.token}` },
+        }
       );
       console.log(`url called: ${API_BASE_URL}/admin-db/table/${tableName}`);
       const result = await response.json();

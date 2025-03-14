@@ -136,6 +136,13 @@ export default function NavigationBar() {
                         Users
                       </button>
                     </li>
+                    <li>
+                      <button
+                        onClick={() => router.push("/admin-db/SyncContracts")}
+                      >
+                        Sync Contracts
+                      </button>
+                    </li>
                   </ul>
                 )}
               </div>

@@ -7,6 +7,7 @@ const AdminDbTable = () => {
   const { name_of_table } = router.query;
 
   const TableComponent = dynamic(() => {
+    console.log("-----> name_of_table", name_of_table);
     if (name_of_table === "manage-db-backups") {
       return import(`../../components/admin-db/ManageDbBackups`).catch(
         () => () => <p>Table Not Found</p>

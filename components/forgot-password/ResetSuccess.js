@@ -13,9 +13,11 @@ const ResetSuccess = () => {
           alt="Kyber Vision Logo"
         />
       </div>
-      <div className={styles.divMainSub}>
-        <h1 className={styles.title}>Successfully updated your password.</h1>
-        <p>Please sign in again.</p>
+      <div>
+        <h1>Successfully updated your password.</h1>
+        <div style={{ width: "100%", textAlign: "center" }}>
+          <h3>Please go back to your device app and login.</h3>
+        </div>
       </div>
     </main>
   );

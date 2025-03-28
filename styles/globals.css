@@ -12,13 +12,13 @@ body {
 :root {
   --dark-color: #000000;
   --background-color-old: #34385a;
-  --background-color: rgba(200,200,200,1);
+  --background-color: rgba(200, 200, 200, 1);
   --med-text-color: #888787;
   --light-text-color: #ffffff;
   --highlight-red: #8b0419;
   --highlight-green: #4ad22b;
   --highlight-yellow: #fa9f15;
-  --header-height: 10rem;
+  --header-height: 9rem;
 }
 /* header {
   margin: 0;

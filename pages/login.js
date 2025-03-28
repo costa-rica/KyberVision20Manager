@@ -5,6 +5,7 @@ import { loginUser } from "../reducers/user";
 import { useRouter } from "next/router";
 import InputPassword from "../components/InputPassword";
 import Image from "next/image";
+import TemplateView from "../components/TemplateView";
 
 export default function Login() {
   const [email, emailSetter] = useState("");
@@ -69,16 +70,17 @@ export default function Login() {
   const handleClickToReg = () => router.push("/register"); //eg.history.push('/login');
 
   return (
-    <main className={styles.main}>
+    // <main className={styles.main}>
+    <TemplateView onlyVersionsVisible={true}>
       <div className={styles.divMainSub}>
         <div className={styles.divTitles}>
-          <Image
+          {/* <Image
             src="/images/KyberV2Shiny.png"
             width={315}
             height={47}
             alt="Kyber Vision Logo"
           />
-          <div>{process.env.NEXT_PUBLIC_API_BASE_URL}</div>
+          <div>{process.env.NEXT_PUBLIC_API_BASE_URL}</div> */}
           <h1 className={styles.title}>Login</h1>
         </div>
         <div className={styles.divInputsAndBtns}>
@@ -112,6 +114,7 @@ export default function Login() {
           </div>
         </div>
       </div>
-    </main>
+    </TemplateView>
+    // {/* </main> */}
   );
 }

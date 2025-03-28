@@ -4,22 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
-function Versions() {
+function VersionsOBE() {
   const userReducer = useSelector((state) => state.user.value);
   const router = useRouter();
-  useEffect(() => {
-    console.log(
-      `sending video to ${process.env.NEXT_PUBLIC_API_BASE_URL}/videos/upload-video`
-    );
-
-    if (!userReducer.token) {
-      // Redirect if token exists
-      router.push("/login");
-    }
-  }, [userReducer]); // Run effect if token changes
+  const { onlyVersionsVisible } = router.query;
+  const onlyVersionsVisibleBool = onlyVersionsVisible === "true";
+  // console.log("onlyVersionsVisible", onlyVersionsVisible);
 
   return (
-    <TemplateView>
+    <TemplateView onlyVersionsVisible={onlyVersionsVisibleBool}>
       <div>
         <main className={styles.main}>
           <div className={styles.divMain}>

@@ -7,7 +7,7 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { logoutUser } from "../reducers/user";
 
-export default function NavigationBar() {
+export default function NavigationBar({ onlyVersionsVisible }) {
   const userReducer = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -90,62 +90,101 @@ export default function NavigationBar() {
             ref={menuRef}
           >
             <li className={styles.divHeaderRightLi}>
-              <button onClick={() => router.push("/admin-db")}>
-                Admin Database
+              {onlyVersionsVisible ? null : (
+                <button onClick={() => router.push("/admin-db")}>
+                  Admin Database
+                </button>
+              )}
+              <button
+                onClick={() => {
+                  if (onlyVersionsVisible) {
+                    router.push({
+                      pathname: "/versions",
+                      query: { onlyVersionsVisible: "true" },
+                    });
+                  } else {
+                    router.push("/versions");
+                  }
+                }}
+              >
+                Versions
               </button>
-              <button onClick={() => router.push("/versions")}>Versions</button>
-              <button onClick={() => pressedLogoutUser()}>Logout</button>
-              <div className={styles.uploadDropdown} ref={uploadMenuRef}>
-                <button onClick={toggleUploadDropdown}>Select ▼</button>
-                {uploadDropdownOpen && (
-                  <ul className={styles.uploadDropdownMenu}>
-                    <li>
-                      <button onClick={() => router.push("/admin-db/Videos")}>
-                        Upload Video
-                      </button>
-                    </li>
-                    <li>
-                      <button onClick={() => router.push("/admin-db/Matches")}>
-                        Matches
-                      </button>
-                    </li>
-                    <li>
-                      <button onClick={() => router.push("/admin-db/Leagues")}>
-                        Leagues
-                      </button>
-                    </li>
-                    <li>
-                      <button onClick={() => router.push("/admin-db/Teams")}>
-                        Teams
-                      </button>
-                    </li>
-                    <li>
-                      <button onClick={() => router.push("/admin-db/Players")}>
-                        Players
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={() => router.push("/admin-db/PlayerContracts")}
-                      >
-                        Player Contracts
-                      </button>
-                    </li>
-                    <li>
-                      <button onClick={() => router.push("/admin-db/Users")}>
-                        Users
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={() => router.push("/admin-db/SyncContracts")}
-                      >
-                        Sync Contracts
-                      </button>
-                    </li>
-                  </ul>
-                )}
-              </div>
+              {onlyVersionsVisible && (
+                <button onClick={() => router.push("/login")}>Login</button>
+              )}
+              {onlyVersionsVisible ? null : (
+                <>
+                  <button onClick={() => pressedLogoutUser()}>Logout</button>
+
+                  <div className={styles.uploadDropdown} ref={uploadMenuRef}>
+                    <button onClick={toggleUploadDropdown}>Select ▼</button>
+                    {uploadDropdownOpen && (
+                      <ul className={styles.uploadDropdownMenu}>
+                        <li>
+                          <button
+                            onClick={() => router.push("/admin-db/Videos")}
+                          >
+                            Upload Video
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            onClick={() => router.push("/admin-db/Matches")}
+                          >
+                            Matches
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            onClick={() => router.push("/admin-db/Leagues")}
+                          >
+                            Leagues
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            onClick={() => router.push("/admin-db/Teams")}
+                          >
+                            Teams
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            onClick={() => router.push("/admin-db/Players")}
+                          >
+                            Players
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            onClick={() =>
+                              router.push("/admin-db/PlayerContracts")
+                            }
+                          >
+                            Player Contracts
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            onClick={() => router.push("/admin-db/Users")}
+                          >
+                            Users
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            onClick={() =>
+                              router.push("/admin-db/SyncContracts")
+                            }
+                          >
+                            Sync Contracts
+                          </button>
+                        </li>
+                      </ul>
+                    )}
+                  </div>
+                </>
+              )}
             </li>
           </ul>
         </div>

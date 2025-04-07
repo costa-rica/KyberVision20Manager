@@ -56,7 +56,9 @@ export default function VideosTable() {
         scripted: false,
         durationOfMatch: elem.durationString,
         filename: elem.filename,
+        processingStatus: elem.processingStatus,
       }));
+      console.log(videosObjArray);
       setVideosList(videosObjArray);
     } else {
       console.log(`There was a server error: ${response.status}`);
@@ -127,66 +129,6 @@ export default function VideosTable() {
 
     xhr.send(formData);
   };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (!file) {
-  //     alert("Please select a file to upload.");
-  //     return;
-  //   }
-
-  //   setIsUploading(true); // Show modal
-  //   setUploadProgress(0); // Reset progress
-
-  //   const formData = new FormData();
-  //   formData.append("video", file);
-  //   formData.append("matchId", matchId);
-
-  //   const xhr = new XMLHttpRequest();
-  //   const api_url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/videos/upload`;
-  //   xhr.open("POST", api_url);
-
-  //   if (userReducer.token) {
-  //     xhr.setRequestHeader("Authorization", `Bearer ${userReducer.token}`);
-  //   } else {
-  //     alert("You are not authorized. Please log in.");
-  //     router.push("/login");
-  //     return;
-  //   }
-
-  //   // Progress handler
-  //   xhr.upload.onprogress = (event) => {
-  //     if (event.lengthComputable) {
-  //       const progress = Math.round((event.loaded / event.total) * 100);
-  //       setUploadProgress(progress);
-  //     }
-  //   };
-
-  //   // Load handler
-  //   xhr.onload = () => {
-  //     setIsUploading(false); // Hide modal
-  //     if (xhr.status === 200) {
-  //       alert("Video uploaded successfully!");
-  //       fetchVideoListApiCall();
-  //       setFile(null);
-  //       setMatchId("");
-  //       setTeamIdAnalyzed("");
-  //       setTeamIdOpponent("");
-  //       setDateOfMatch("");
-  //       e.target.reset();
-  //     } else {
-  //       alert(`Error: ${xhr.status} - ${xhr.statusText}`);
-  //     }
-  //   };
-
-  //   // Error handler
-  //   xhr.onerror = () => {
-  //     setIsUploading(false); // Hide modal
-  //     alert("An error occurred while uploading the video.");
-  //   };
-
-  //   xhr.send(formData);
-  // };
 
   const handleDelete = async (videoObj) => {
     const videoId = videoObj.id;

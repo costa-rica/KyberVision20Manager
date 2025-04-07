@@ -22,6 +22,7 @@ export default function TableVideos(props) {
             <th> Date</th>
             <th className={styles.theadTr}>Video Filename</th>
             <th> Match Name</th>
+            <th> Process Status</th>
             <th>Delete</th>
           </tr>
         </thead>
@@ -37,18 +38,23 @@ export default function TableVideos(props) {
                   </div>
                 </td>
                 <td>{elem.matchName}</td>
+                <td>{elem.processingStatus}</td>
                 <td className={styles.tdRemove}>
-                  <div className={styles.divTdRemove}>
-                    <FontAwesomeIcon
-                      icon={faCircleMinus}
-                      onClick={() => {
-                        console.log("pressed buttpon");
-                        props.setDeleteVideoObj(elem);
-                        props.setDeleteModalIsOpen(true);
-                      }}
-                      className={styles.iconDelete}
-                    />
-                  </div>
+                  {elem.processingStatus === "processed" ? (
+                    <div className={styles.divTdRemove}>
+                      <FontAwesomeIcon
+                        icon={faCircleMinus}
+                        onClick={() => {
+                          console.log("pressed buttpon");
+                          props.setDeleteVideoObj(elem);
+                          props.setDeleteModalIsOpen(true);
+                        }}
+                        className={styles.iconDelete}
+                      />
+                    </div>
+                  ) : (
+                    <div> Cannot delete while processing...</div>
+                  )}
                 </td>
               </tr>
             );

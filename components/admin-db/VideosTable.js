@@ -20,6 +20,7 @@ export default function VideosTable() {
   const [isUploading, setIsUploading] = useState(false); // Modal state
   const [uploadProgress, setUploadProgress] = useState(0); // Progress percentage
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false); // State to control modal visibility
+  const [uploadMethod, setUploadMethod] = useState("youtube");
   const [deleteVideoObj, setDeleteVideoObj] = useState({});
   const userReducer = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
@@ -87,7 +88,10 @@ export default function VideosTable() {
     formData.append("matchId", matchId);
 
     const xhr = new XMLHttpRequest();
-    const api_url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/videos/upload`;
+    let api_url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/videos/upload`;
+    if (uploadMethod === "youtube") {
+      api_url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/videos/upload-youtube`;
+    }
     xhr.open("POST", api_url);
 
     if (userReducer.token) {
@@ -177,10 +181,24 @@ export default function VideosTable() {
                 <label htmlFor="matchId">Match ID:</label>
                 <input
                   className={styles.inputField}
-                  onChange={(e) => setMatchId(e.target.value)}
+                  onChange={(e) => {
+                    setMatchId(e.target.value);
+                    console.log(`matchId: ${e.target.value}`);
+                  }}
                   value={matchId}
                   required
                 />
+              </div>
+              <div className={styles.inputGroup}>
+                <span>Select upload method: </span>
+                <select
+                  className={styles.dropdown}
+                  value={uploadMethod}
+                  onChange={(e) => setUploadMethod(e.target.value)}
+                >
+                  <option value="youtube">via YouTube</option>
+                  <option value="oldway">Old way</option>
+                </select>
               </div>
 
               <button type="submit" className={styles.submitButton}>

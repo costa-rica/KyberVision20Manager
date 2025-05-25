@@ -180,6 +180,13 @@ export default function NavigationBar({ onlyVersionsVisible }) {
                             Sync Contracts
                           </button>
                         </li>
+                        <li>
+                          <button
+                            onClick={() => router.push("/admin-db/Scripts")}
+                          >
+                            Scripts
+                          </button>
+                        </li>
                       </ul>
                     )}
                   </div>

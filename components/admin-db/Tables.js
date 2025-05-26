@@ -1,15 +1,90 @@
 import { useState, useEffect } from "react";
-import styles from "../../styles/AdminDb.module.css";
+import styles from "../../styles/admin-db/Tables.module.css";
 import TemplateView from "../TemplateView";
 import { useSelector } from "react-redux";
-import Table01 from "../subcomponents/tables/Table01";
+import Table02AdminDb from "../subcomponents/tables/Table02AdminDb";
 import { createColumnHelper } from "@tanstack/react-table";
+import ModalYesNo from "../subcomponents/modals/ModalYesNo";
 
 export default function Tables() {
   const userReducer = useSelector((state) => state.user.value);
   const [selectedTable, setSelectedTable] = useState("User"); // Default selection
   const [tableData, setTableData] = useState([]);
-  const [columns, setColumns] = useState(null);
+  const [tableColumns, setTableColumns] = useState(null);
+  const [visibleKeys, setVisibleKeys] = useState([]);
+  const [isOpenAreYouSure, setIsOpenAreYouSure] = useState(false);
+  const [modalTitleAndContent, setModalTitleAndContent] = useState({
+    title: "Are you sure?",
+    content: "",
+  });
+  const [selectedId, setSelectedId] = useState(null);
+
+  // 1. Load visibleKeys when tableData is fetched
+  useEffect(() => {
+    if (tableData.length === 0) return;
+
+    const allKeys = Object.keys(tableData[0]);
+    const defaultHidden = ["createdAt", "updatedAt"];
+    const visible = allKeys.filter((key) => !defaultHidden.includes(key));
+
+    setVisibleKeys(visible);
+  }, [tableData]);
+
+  // 2. Build dynamic columns when visibleKeys change
+  useEffect(() => {
+    if (tableData.length === 0 || visibleKeys.length === 0) return;
+
+    const columnHelper = createColumnHelper();
+    const totalColumns = visibleKeys.length;
+    const tableWidth = 60;
+
+    const dynamicCols = visibleKeys.map((key) =>
+      columnHelper.accessor(key, {
+        id: key,
+        header: () => (
+          <div
+            style={{ width: `${tableWidth / totalColumns}rem` }}
+            className="tdWrapAllGlobal"
+          >
+            <p>{key}</p>
+          </div>
+        ),
+        enableSorting: true,
+        cell: (info) => (
+          <div
+            style={{ width: `${tableWidth / totalColumns}rem` }}
+            className={[styles.divTableCell]}
+          >
+            {info.getValue()}
+          </div>
+        ),
+      })
+    );
+
+    const deleteColumn = columnHelper.display({
+      id: "delete",
+      header: "",
+      cell: ({ row }) => (
+        <div className={styles.divDeleteButton}>
+          <button
+            className={styles.deleteButton}
+            onClick={() => {
+              setSelectedId(row.original.id);
+              setModalTitleAndContent({
+                title: "Are you sure?",
+                content: `You are about to delete ${selectedTable} ID: ${row.original.id}. \n Titled: ${row.original.title}. \n This action cannot be undone.`,
+              });
+              setIsOpenAreYouSure(true);
+            }}
+          >
+            X
+          </button>
+        </div>
+      ),
+    });
+
+    setTableColumns([...dynamicCols, deleteColumn]);
+  }, [tableData, visibleKeys]);
 
   useEffect(() => {
     fetchData(selectedTable);
@@ -52,59 +127,61 @@ export default function Tables() {
     }
   };
 
-  useEffect(() => {
-    if (tableData.length === 0) return;
-
-    const columnHelper = createColumnHelper();
-
-    const dynamicCols = Object.keys(tableData[0]).map((key) =>
-      columnHelper.accessor(key, {
-        id: key,
-        header: () => key.toUpperCase(),
-        enableSorting: true,
-        cell: (info) => info.getValue(),
-      })
-    );
-
-    console.log("----Dynamic Cols BEFORE setColumns----");
-    console.log(dynamicCols);
-    console.log("---------------------------------------");
-
-    setColumns(dynamicCols);
-  }, [tableData]);
+  // useEffect(() => {
+  //   if (tableData.length === 0) return;
+  //   const keys = Object.keys(tableData[0]);
+  //   setVisibleKeys(keys); // 👈 initialize visible keys
   //   const columnHelper = createColumnHelper();
-  //   const columnsForTable = [
-  //     columnHelper.accessor("id", {
-  //       header: "ID",
-  //       enableSorting: true,
-  //       cell: ({ row }) => (
-  //         <button
-  //           onClick={() => handleSelectRow(row.original.id)}
-  //           style={{
-  //             fontSize: "10px",
-  //           }}
+  //   const totalColumns = visibleKeys.length;
+  //   const tableWidth = 60;
+
+  //   const dynamicCols = visibleKeys.map((key) =>
+  //     columnHelper.accessor(key, {
+  //       id: key,
+  //       header: () => (
+  //         <div
+  //           style={{ width: `${tableWidth / totalColumns}rem` }}
+  //           className="tdWrapAllGlobal"
   //         >
-  //           {row.original.id}
-  //         </button>
+  //           <p>{key.toUpperCase()}</p>
+  //         </div>
   //       ),
-  //     }),
-  //     columnHelper.accessor("id", {
-  //       header: "ID",
   //       enableSorting: true,
-  //     }),
-  //     columnHelper.display({
-  //       id: "delete",
-  //       header: "Delete",
-  //       cell: ({ row }) => (
-  //         <button
-  //           className={styles.deleteButton}
-  //           onClick={() => handleDelete(row.original.id)}
+  //       cell: (info) => (
+  //         <div
+  //           style={{ width: `${tableWidth / totalColumns}rem` }}
+  //           className="tdWrapAllGlobal"
   //         >
-  //           X
-  //         </button>
+  //           {info.getValue()}
+  //         </div>
   //       ),
-  //     }),
-  //   ];
+  //     })
+  //   );
+  //   // const dynamicCols = Object.keys(tableData[0]).map((key) =>
+  //   //   columnHelper.accessor(key, {
+  //   //     id: key,
+  //   //     header: () => (
+  //   //       <div
+  //   //         style={{ width: `${tableWidth / totalColumns}rem` }}
+  //   //         className="tdWrapAllGlobal"
+  //   //       >
+  //   //         <p>{key.toUpperCase()}</p>
+  //   //       </div>
+  //   //     ),
+  //   //     enableSorting: true,
+  //   //     cell: (info) => (
+  //   //       <div
+  //   //         style={{ width: `${tableWidth / totalColumns}rem` }}
+  //   //         className="tdWrapAllGlobal"
+  //   //       >
+  //   //         {info.getValue()}
+  //   //       </div>
+  //   //     ),
+  //   //   })
+  //   // );
+
+  //   setTableColumns(dynamicCols);
+  // }, [tableData, visibleKeys]);
 
   const handleDelete = async (id) => {
     console.log("Deleting script with ID:", id);
@@ -133,60 +210,80 @@ export default function Tables() {
     // }
   };
 
+  const toggleKeyVisibility = (key) => {
+    setVisibleKeys((prev) =>
+      prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]
+    );
+  };
   return (
     <TemplateView>
       <main className={styles.main}>
         <h1>[NEW] Admin Database</h1>
 
-        {/* Dropdown for selecting table */}
-        <div className={styles.divDropdown}>
-          <div className={styles.dropdownContainer}>
-            <select
-              className={styles.dropdown}
-              value={selectedTable}
-              onChange={(e) => setSelectedTable(e.target.value)}
-            >
-              <option value="User">User</option>
-              <option value="Video">Video</option>
-              <option value="Action">Action</option>
-              <option value="CompetitionContract">CompetitionContract</option>
-              <option value="Complex">Complex</option>
-              <option value="GroupContract">GroupContract</option>
-              <option value="League">League</option>
-              <option value="Match">Match</option>
-              <option value="OpponentServeTimestamp">
-                OpponentServeTimestamp
-              </option>
-              <option value="Player">Player</option>
-              <option value="PlayerContract">PlayerContract</option>
-              <option value="Point">Point</option>
-              <option value="Script">Script</option>
-              <option value="SyncContract">SyncContract</option>
-              <option value="Team">Team</option>
-            </select>
+        <div className={styles.divControls}>
+          {/* Dropdown for selecting table */}
+          <div className={styles.divDropdown}>
+            <div className={styles.dropdownContainer}>
+              <select
+                className={styles.dropdown}
+                value={selectedTable}
+                onChange={(e) => setSelectedTable(e.target.value)}
+              >
+                <option value="User">User</option>
+                <option value="Video">Video</option>
+                <option value="Action">Action</option>
+                <option value="CompetitionContract">CompetitionContract</option>
+                <option value="Complex">Complex</option>
+                <option value="GroupContract">GroupContract</option>
+                <option value="League">League</option>
+                <option value="Match">Match</option>
+                <option value="OpponentServeTimestamp">
+                  OpponentServeTimestamp
+                </option>
+                <option value="Player">Player</option>
+                <option value="PlayerContract">PlayerContract</option>
+                <option value="Point">Point</option>
+                <option value="Script">Script</option>
+                <option value="SyncContract">SyncContract</option>
+                <option value="Team">Team</option>
+              </select>
+            </div>
+          </div>
+          <div className={styles.divHideColumns}>
+            {Object.keys(tableData[0] || {}).map((key) => (
+              <label key={key}>
+                <input
+                  type="checkbox"
+                  checked={visibleKeys.includes(key)}
+                  onChange={() => toggleKeyVisibility(key)}
+                />
+                {key}
+              </label>
+            ))}
           </div>
         </div>
 
         <div className={styles.divTable}>
-          {columns && (
-            <Table01
-              columns={columns}
+          {tableColumns && (
+            <Table02AdminDb
+              columns={tableColumns}
               data={tableData}
               onDeleteRow={handleDelete}
               selectedRow={handleSelectRow}
             />
           )}
-          {/* <Table01
-            columns={columns}
-            data={tableData}
-            onDeleteRow={handleDelete}
-            selectedRow={handleSelectRow}
-          /> */}
-          {/* {data.map((item, index) => (
-            <div key={index}>{JSON.stringify(item)}</div>
-          ))} */}
         </div>
       </main>
+      {isOpenAreYouSure && (
+        <ModalYesNo
+          isModalOpenSetter={setIsOpenAreYouSure}
+          title={modalTitleAndContent.title}
+          // content={`You are about to delete article ID: ${selectedArticle.id}. \n Titled: ${selectedArticle.title}. \n This action cannot be undone.`}
+          content={modalTitleAndContent.content}
+          handleYes={() => handleClickDelete(selectedId)}
+          handleNo={() => setIsOpenAreYouSure(false)}
+        />
+      )}
     </TemplateView>
   );
 }

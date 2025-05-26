@@ -22,6 +22,10 @@ export default function Table01({
   });
   const [sorting, setSorting] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
+  if (!columns || columns.length === 0) {
+    console.warn("No valid columns passed to Table01");
+    return null;
+  }
   const table = useReactTable({
     data,
     columns,
@@ -40,7 +44,7 @@ export default function Table01({
     autoResetPageIndex: false, // ✅ ADD THIS
   });
   // {loading && <ModalLoading isVisible={true} sizeOfParent={true} />}
-
+  console.log("Header Groups:", table.getHeaderGroups());
   return loading ? (
     <div className={styles.divTableMain}>
       <ModalLoading isVisible={true} sizeOfParent={true} />

@@ -57,7 +57,7 @@ export default function Register() {
       if (resJson.user.isAdminForKvManagerWebsite) {
         // resJson.email = email;
         dispatch(loginUser(resJson));
-        router.push("/admin-db");
+        router.push("/admin-db/tables");
       } else {
         alert(
           "You have been registered but are still not authorized to login. Contact Kyber Vision for access."

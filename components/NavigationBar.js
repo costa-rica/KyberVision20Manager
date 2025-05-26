@@ -91,7 +91,7 @@ export default function NavigationBar({ onlyVersionsVisible }) {
           >
             <li className={styles.divHeaderRightLi}>
               {onlyVersionsVisible ? null : (
-                <button onClick={() => router.push("/admin-db")}>
+                <button onClick={() => router.push("/admin-db/tables")}>
                   Admin Database
                 </button>
               )}

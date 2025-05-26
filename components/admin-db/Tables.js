@@ -185,20 +185,20 @@ export default function Tables() {
 
   const handleDelete = async (id) => {
     console.log("Deleting script with ID:", id);
-    // const response = await fetch(
-    //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/scripts/${scriptId}`,
-    //   {
-    //     method: "DELETE",
-    //     headers: { Authorization: `Bearer ${userReducer.token}` },
-    //   }
-    // );
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin-db/table-row/${selectedTable}/${id}`,
+      {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${userReducer.token}` },
+      }
+    );
 
-    // if (response.status === 204) {
-    //   alert("Script deleted successfully!");
-    //   fetchScriptsArray();
-    // } else {
-    //   alert(`Error deleting Script: ${response.status}`);
-    // }
+    if (response.status === 200) {
+      alert("Script deleted successfully!");
+      fetchData(selectedTable);
+    } else {
+      alert(`Error deleting Script: ${response.status}`);
+    }
   };
 
   const handleSelectRow = (id) => {
@@ -218,60 +218,78 @@ export default function Tables() {
   return (
     <TemplateView>
       <main className={styles.main}>
-        <h1>[NEW] Admin Database</h1>
+        <div className={styles.divMain}>
+          <h1>[NEW] Admin Database</h1>
 
-        <div className={styles.divControls}>
-          {/* Dropdown for selecting table */}
-          <div className={styles.divDropdown}>
-            <div className={styles.dropdownContainer}>
-              <select
-                className={styles.dropdown}
-                value={selectedTable}
-                onChange={(e) => setSelectedTable(e.target.value)}
-              >
-                <option value="User">User</option>
-                <option value="Video">Video</option>
-                <option value="Action">Action</option>
-                <option value="CompetitionContract">CompetitionContract</option>
-                <option value="Complex">Complex</option>
-                <option value="GroupContract">GroupContract</option>
-                <option value="League">League</option>
-                <option value="Match">Match</option>
-                <option value="OpponentServeTimestamp">
-                  OpponentServeTimestamp
-                </option>
-                <option value="Player">Player</option>
-                <option value="PlayerContract">PlayerContract</option>
-                <option value="Point">Point</option>
-                <option value="Script">Script</option>
-                <option value="SyncContract">SyncContract</option>
-                <option value="Team">Team</option>
-              </select>
+          <div className={styles.divLinks}>
+            <ul>
+              <li>
+                <a href="/admin-db/manage-db-backups">Manage DB Backups</a>
+              </li>
+              <li>
+                <a href="/admin-db/manage-db-uploads">Manage DB Uploads</a>
+              </li>
+              <li>
+                <a href="/admin-db/manage-db-deletes">Manage DB Deletes</a>
+              </li>
+            </ul>
+          </div>
+
+          <div className={styles.divControls}>
+            {/* Dropdown for selecting table */}
+            <div className={styles.divDropdown}>
+              <div className={styles.dropdownContainer}>
+                <select
+                  className={styles.dropdown}
+                  value={selectedTable}
+                  onChange={(e) => setSelectedTable(e.target.value)}
+                >
+                  <option value="User">User</option>
+                  <option value="Video">Video</option>
+                  <option value="Action">Action</option>
+                  <option value="CompetitionContract">
+                    CompetitionContract
+                  </option>
+                  <option value="Complex">Complex</option>
+                  <option value="GroupContract">GroupContract</option>
+                  <option value="League">League</option>
+                  <option value="Match">Match</option>
+                  <option value="OpponentServeTimestamp">
+                    OpponentServeTimestamp
+                  </option>
+                  <option value="Player">Player</option>
+                  <option value="PlayerContract">PlayerContract</option>
+                  <option value="Point">Point</option>
+                  <option value="Script">Script</option>
+                  <option value="SyncContract">SyncContract</option>
+                  <option value="Team">Team</option>
+                </select>
+              </div>
+            </div>
+            <div className={styles.divHideColumns}>
+              {Object.keys(tableData[0] || {}).map((key) => (
+                <label key={key}>
+                  <input
+                    type="checkbox"
+                    checked={visibleKeys.includes(key)}
+                    onChange={() => toggleKeyVisibility(key)}
+                  />
+                  {key}
+                </label>
+              ))}
             </div>
           </div>
-          <div className={styles.divHideColumns}>
-            {Object.keys(tableData[0] || {}).map((key) => (
-              <label key={key}>
-                <input
-                  type="checkbox"
-                  checked={visibleKeys.includes(key)}
-                  onChange={() => toggleKeyVisibility(key)}
-                />
-                {key}
-              </label>
-            ))}
-          </div>
-        </div>
 
-        <div className={styles.divTable}>
-          {tableColumns && (
-            <Table02AdminDb
-              columns={tableColumns}
-              data={tableData}
-              onDeleteRow={handleDelete}
-              selectedRow={handleSelectRow}
-            />
-          )}
+          <div className={styles.divTable}>
+            {tableColumns && (
+              <Table02AdminDb
+                columns={tableColumns}
+                data={tableData}
+                onDeleteRow={handleDelete}
+                selectedRow={handleSelectRow}
+              />
+            )}
+          </div>
         </div>
       </main>
       {isOpenAreYouSure && (
@@ -280,7 +298,7 @@ export default function Tables() {
           title={modalTitleAndContent.title}
           // content={`You are about to delete article ID: ${selectedArticle.id}. \n Titled: ${selectedArticle.title}. \n This action cannot be undone.`}
           content={modalTitleAndContent.content}
-          handleYes={() => handleClickDelete(selectedId)}
+          handleYes={() => handleDelete(selectedId)}
           handleNo={() => setIsOpenAreYouSure(false)}
         />
       )}

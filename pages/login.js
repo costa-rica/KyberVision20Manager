@@ -17,7 +17,7 @@ export default function Login() {
   useEffect(() => {
     if (userReducer.token) {
       // Redirect if token exists
-      router.push("/admin-db");
+      router.push("/admin-db/tables");
     }
   }, [userReducer]); // Run effect if token changes
 
@@ -56,7 +56,7 @@ export default function Login() {
       if (resJson.user.isAdminForKvManagerWebsite) {
         resJson.email = email;
         dispatch(loginUser(resJson));
-        router.push("/admin-db");
+        router.push("/admin-db/tables");
       } else {
         alert("You are not authorized to login.");
       }

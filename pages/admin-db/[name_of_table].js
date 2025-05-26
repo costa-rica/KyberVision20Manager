@@ -20,6 +20,10 @@ const AdminDbTable = () => {
       return import(`../../components/admin-db/ManageDbDeletes`).catch(
         () => () => <p>Table Not Found</p>
       );
+    } else if (name_of_table === "tables") {
+      return import(`../../components/admin-db/Tables`).catch(() => () => (
+        <p>Table Not Found</p>
+      ));
     } else {
       return import(`../../components/admin-db/${name_of_table}Table`).catch(
         () => () => <p>Table Not Found</p>

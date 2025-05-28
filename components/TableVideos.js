@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function TableVideos(props) {
-  const [videosList, setVideosList] = useState([]);
+  const [videosArray, setVideosArray] = useState([]);
 
   // useEffect(() => {
 
@@ -27,7 +27,7 @@ export default function TableVideos(props) {
           </tr>
         </thead>
         <tbody>
-          {props.videosList.map((elem, index) => {
+          {props.videosArray.map((elem, index) => {
             return (
               <tr key={index}>
                 <td>{elem.date}</td>

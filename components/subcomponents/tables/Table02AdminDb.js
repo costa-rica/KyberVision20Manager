@@ -44,7 +44,7 @@ export default function Table02AdminDb({
     autoResetPageIndex: false, // ✅ ADD THIS
   });
   // {loading && <ModalLoading isVisible={true} sizeOfParent={true} />}
-  console.log("Header Groups:", table.getHeaderGroups());
+  // console.log("Header Groups:", table.getHeaderGroups());
   return loading ? (
     <div className={styles.divTableMain}>
       <ModalLoading isVisible={true} sizeOfParent={true} />

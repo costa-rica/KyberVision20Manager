@@ -13,10 +13,8 @@ import {
 export default function VideosTable() {
   const [file, setFile] = useState(null);
   const [matchId, setMatchId] = useState("");
-  const [teamIdAnalyzed, setTeamIdAnalyzed] = useState("");
-  const [teamIdOpponent, setTeamIdOpponent] = useState("");
-  const [dateOfMatch, setDateOfMatch] = useState("");
-  const [videosList, setVideosList] = useState([]);
+
+  const [videosArray, setVideosArray] = useState([]);
   const [isUploading, setIsUploading] = useState(false); // Modal state
   const [uploadProgress, setUploadProgress] = useState(0); // Progress percentage
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false); // State to control modal visibility
@@ -49,7 +47,7 @@ export default function VideosTable() {
 
     if (response.status === 200) {
       const resJson = await response.json();
-      const videosObjArray = resJson.videos.map((elem) => ({
+      const videosObjArray = resJson.videosArray.map((elem) => ({
         id: `${elem.id}`,
         name: `${elem.matchName}`,
         date: elem.date,
@@ -60,7 +58,7 @@ export default function VideosTable() {
         processingStatus: elem.processingStatus,
       }));
       console.log(videosObjArray);
-      setVideosList(videosObjArray);
+      setVideosArray(videosObjArray);
     } else {
       console.log(`There was a server error: ${response.status}`);
     }
@@ -112,7 +110,7 @@ export default function VideosTable() {
 
     // Load handler
     xhr.onload = () => {
-      if (xhr.status === 201) {
+      if (xhr.status === 200) {
         setUploadProgress(100); // Ensure progress reaches 100%
         setTimeout(() => {
           setIsUploading(false); // Hide modal
@@ -212,7 +210,7 @@ export default function VideosTable() {
             <TableVideos
               setDeleteModalIsOpen={setDeleteModalIsOpen}
               setDeleteVideoObj={setDeleteVideoObj}
-              videosList={videosList}
+              videosArray={videosArray}
             />
           </div>
 

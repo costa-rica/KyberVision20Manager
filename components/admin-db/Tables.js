@@ -18,6 +18,7 @@ export default function Tables() {
     content: "",
   });
   const [selectedId, setSelectedId] = useState(null);
+  const [selectedRow, setSelectedRow] = useState({});
 
   // 1. Load visibleKeys when tableData is fetched
   useEffect(() => {
@@ -38,28 +39,51 @@ export default function Tables() {
     const totalColumns = visibleKeys.length;
     const tableWidth = 60;
 
-    const dynamicCols = visibleKeys.map((key) =>
-      columnHelper.accessor(key, {
-        id: key,
-        header: () => (
-          <div
-            style={{ width: `${tableWidth / totalColumns}rem` }}
-            className="tdWrapAllGlobal"
-          >
-            <p>{key}</p>
-          </div>
-        ),
-        enableSorting: true,
-        cell: (info) => (
-          <div
-            style={{ width: `${tableWidth / totalColumns}rem` }}
-            className={[styles.divTableCell]}
-          >
-            {info.getValue()}
-          </div>
-        ),
-      })
-    );
+    const dynamicCols = visibleKeys.map((key) => {
+      if (key === "id") {
+        return columnHelper.accessor(key, {
+          id: key,
+          header: () => (
+            <div style={{ width: `1rem` }} className="tdWrapAllGlobal">
+              <p>{key}</p>
+            </div>
+          ),
+          enableSorting: true,
+          cell: (info) => (
+            <div className={[styles.divTableCell]}>
+              <button onClick={() => handleSelectRow(info.getValue())}>
+                {info.getValue()}
+              </button>
+            </div>
+          ),
+        });
+      } else {
+        return columnHelper.accessor(key, {
+          id: key,
+          header: () => (
+            <div
+              style={{ width: `${tableWidth / totalColumns}rem` }}
+              className="tdWrapAllGlobal"
+            >
+              <p>{key}</p>
+            </div>
+          ),
+          enableSorting: true,
+          cell: (info) => (
+            <div
+              style={{ width: `${tableWidth / totalColumns}rem` }}
+              className={[styles.divTableCell]}
+            >
+              {key.startsWith("is")
+                ? info.getValue()
+                  ? "true"
+                  : "false"
+                : info.getValue()}
+            </div>
+          ),
+        });
+      }
+    });
 
     const deleteColumn = columnHelper.display({
       id: "delete",
@@ -203,11 +227,12 @@ export default function Tables() {
 
   const handleSelectRow = (id) => {
     console.log("Selected row with ID:", id);
-    // const selectedRow = data.find((row) => row.id === id);
-    // if (selectedRow) {
-    //   const { createdAt, updatedAt, ...filteredRow } = selectedRow;
-    // //   setFormData(filteredRow);
-    // }
+    setSelectedId(id);
+    const selectedRow = tableData.find((row) => row.id === id);
+    if (selectedRow) {
+      const { createdAt, updatedAt, ...filteredRow } = selectedRow;
+      setSelectedRow(filteredRow);
+    }
   };
 
   const toggleKeyVisibility = (key) => {
@@ -215,80 +240,168 @@ export default function Tables() {
       prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]
     );
   };
+
+  const handleAddOrUpdateRow = async () => {
+    console.log("Adding or updating row with ID:", selectedId);
+    console.log("Selected row:", selectedRow);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin-db/table-row/${selectedTable}/${selectedId}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${userReducer.token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(selectedRow),
+      }
+    );
+
+    if (response.status === 200) {
+      alert("Row added or updated successfully!");
+      fetchData(selectedTable);
+    } else {
+      alert(`Error adding or updating row: ${response.status}`);
+    }
+  };
+
+  const handleClearSelectionAndForm = () => {
+    setSelectedId(null);
+    setSelectedRow({});
+  };
+
   return (
     <TemplateView>
       <main className={styles.main}>
         <div className={styles.divMain}>
-          <h1>[NEW] Admin Database</h1>
+          <div className={styles.divTop}>
+            <h1>Admin Database</h1>
+            <div className={styles.divLinks}>
+              <ul>
+                <li>
+                  <a href="/admin-db/manage-db-backups">Manage DB Backups</a>
+                </li>
+                <li>
+                  <a href="/admin-db/manage-db-uploads">Manage DB Uploads</a>
+                </li>
+                <li>
+                  <a href="/admin-db/manage-db-deletes">Manage DB Deletes</a>
+                </li>
+              </ul>
+            </div>
 
-          <div className={styles.divLinks}>
-            <ul>
-              <li>
-                <a href="/admin-db/manage-db-backups">Manage DB Backups</a>
-              </li>
-              <li>
-                <a href="/admin-db/manage-db-uploads">Manage DB Uploads</a>
-              </li>
-              <li>
-                <a href="/admin-db/manage-db-deletes">Manage DB Deletes</a>
-              </li>
-            </ul>
-          </div>
-
-          <div className={styles.divControls}>
-            {/* Dropdown for selecting table */}
-            <div className={styles.divDropdown}>
-              <div className={styles.dropdownContainer}>
-                <select
-                  className={styles.dropdown}
-                  value={selectedTable}
-                  onChange={(e) => setSelectedTable(e.target.value)}
-                >
-                  <option value="User">User</option>
-                  <option value="Video">Video</option>
-                  <option value="Action">Action</option>
-                  <option value="CompetitionContract">
-                    CompetitionContract
-                  </option>
-                  <option value="Complex">Complex</option>
-                  <option value="GroupContract">GroupContract</option>
-                  <option value="League">League</option>
-                  <option value="Match">Match</option>
-                  <option value="OpponentServeTimestamp">
-                    OpponentServeTimestamp
-                  </option>
-                  <option value="Player">Player</option>
-                  <option value="PlayerContract">PlayerContract</option>
-                  <option value="Point">Point</option>
-                  <option value="Script">Script</option>
-                  <option value="SyncContract">SyncContract</option>
-                  <option value="Team">Team</option>
-                </select>
+            <div className={styles.divControls}>
+              {/* Dropdown for selecting table */}
+              <div className={styles.divDropdown}>
+                <div className={styles.dropdownContainer}>
+                  <select
+                    className={styles.dropdown}
+                    value={selectedTable}
+                    onChange={(e) => setSelectedTable(e.target.value)}
+                  >
+                    <option value="User">User</option>
+                    <option value="Video">Video</option>
+                    <option value="Action">Action</option>
+                    <option value="CompetitionContract">
+                      CompetitionContract
+                    </option>
+                    <option value="Complex">Complex</option>
+                    <option value="GroupContract">GroupContract</option>
+                    <option value="League">League</option>
+                    <option value="Match">Match</option>
+                    <option value="OpponentServeTimestamp">
+                      OpponentServeTimestamp
+                    </option>
+                    <option value="Player">Player</option>
+                    <option value="PlayerContract">PlayerContract</option>
+                    <option value="Point">Point</option>
+                    <option value="Script">Script</option>
+                    <option value="SyncContract">SyncContract</option>
+                    <option value="Team">Team</option>
+                  </select>
+                </div>
+              </div>
+              <div className={styles.divHideColumns}>
+                {Object.keys(tableData[0] || {}).map((key) => (
+                  <label key={key}>
+                    <input
+                      type="checkbox"
+                      checked={visibleKeys.includes(key)}
+                      onChange={() => toggleKeyVisibility(key)}
+                    />
+                    {key}
+                  </label>
+                ))}
               </div>
             </div>
-            <div className={styles.divHideColumns}>
-              {Object.keys(tableData[0] || {}).map((key) => (
-                <label key={key}>
-                  <input
-                    type="checkbox"
-                    checked={visibleKeys.includes(key)}
-                    onChange={() => toggleKeyVisibility(key)}
-                  />
-                  {key}
-                </label>
-              ))}
-            </div>
           </div>
 
-          <div className={styles.divTable}>
-            {tableColumns && (
-              <Table02AdminDb
-                columns={tableColumns}
-                data={tableData}
-                onDeleteRow={handleDelete}
-                selectedRow={handleSelectRow}
-              />
-            )}
+          <div className={styles.divMiddle}>
+            <div className={styles.divAddOrUpdateGroup}>
+              {visibleKeys.map((key) => (
+                <div key={key} className={styles.divAddOrUpdateGroupItem}>
+                  <p>{key}</p>
+                  {key.startsWith("is") ? (
+                    <div className={styles.divRadioGroup}>
+                      <label className={styles.labelRadioOption}>
+                        <input
+                          type="radio"
+                          name={`radio-${key}`}
+                          value="true"
+                          checked={selectedRow[key] === true}
+                          onChange={() =>
+                            setSelectedRow({ ...selectedRow, [key]: true })
+                          }
+                        />
+                        true
+                      </label>
+                      <label className={styles.labelRadioOption}>
+                        <input
+                          type="radio"
+                          name={`radio-${key}`}
+                          value="false"
+                          checked={selectedRow[key] === false}
+                          onChange={() =>
+                            setSelectedRow({ ...selectedRow, [key]: false })
+                          }
+                        />
+                        false
+                      </label>
+                    </div>
+                  ) : (
+                    <input
+                      type="text"
+                      onChange={(e) =>
+                        setSelectedRow({
+                          ...selectedRow,
+                          [key]: e.target.value,
+                        })
+                      }
+                      // value={selectedRow[key]}
+                      value={selectedRow[key] ?? ""}
+                      disabled={key === "password"}
+                    />
+                  )}
+                </div>
+              ))}
+              <div className={styles.divAddOrUpdateGroupItemSubmit}>
+                <button onClick={handleClearSelectionAndForm}>Clear</button>
+                <button onClick={handleAddOrUpdateRow}>
+                  {selectedId ? "Update Row" : "Add Row"}
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className={styles.divBottom}>
+            <div className={styles.divTable}>
+              {tableColumns && (
+                <Table02AdminDb
+                  columns={tableColumns}
+                  data={tableData}
+                  onDeleteRow={handleDelete}
+                  selectedRow={handleSelectRow}
+                />
+              )}
+            </div>
           </div>
         </div>
       </main>

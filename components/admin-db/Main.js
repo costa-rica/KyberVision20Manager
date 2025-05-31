@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
-import styles from "../../styles/admin-db/Tables.module.css";
-import TemplateView from "../TemplateView";
+import styles from "../../styles/admin-db/Main.module.css";
+// import TemplateView from "../TemplateViewOBE";
+import TemplateView from "../common/TemplateView";
 import { useSelector } from "react-redux";
 import Table02AdminDb from "../subcomponents/tables/Table02AdminDb";
 import { createColumnHelper } from "@tanstack/react-table";
 import ModalYesNo from "../subcomponents/modals/ModalYesNo";
 
-export default function Tables() {
-  const userReducer = useSelector((state) => state.user.value);
+export default function Main() {
+  const userReducer = useSelector((state) => state.user);
   const [selectedTable, setSelectedTable] = useState("User"); // Default selection
   const [tableData, setTableData] = useState([]);
   const [tableColumns, setTableColumns] = useState(null);
@@ -142,12 +143,12 @@ export default function Tables() {
         // setTableData(result.data);
       } else {
         setTableData([]);
-        setColumns([]);
+        // setColumns([]);
       }
     } catch (error) {
       console.error("Error fetching data:", error.message);
       setTableData([]);
-      setColumns([]);
+      // setColumns([]);
     }
   };
 

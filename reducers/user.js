@@ -1,12 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  value: {
-    token: null,
-    username: null,
-    email: null,
-    newVideoId: null,
-    newVideoFilename: null,
+  token: null,
+  username: null,
+  email: null,
+  newVideoId: null,
+  newVideoFilename: null,
+  navExpandObject: {
+    ManageDb: false,
+    VolleyballAdmin: false,
+    ScriptingAndVideo: false,
   },
 };
 
@@ -15,27 +18,36 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     loginUser: (state, action) => {
-      console.log(`- dans Redux: loginUser 🔔`);
-      state.value.token = action.payload.token;
-      state.value.username = action.payload.user.username || "some_name";
-      state.value.email = action.payload.user.email || "some_name@mail.com";
-      console.log(`- finished loginUser 🏁`);
+      // console.log(`- dans Redux: loginUser 🔔`);
+      state.token = action.payload.token;
+      state.username = action.payload.user.username || "some_name";
+      state.email = action.payload.user.email || "some_name@mail.com";
+      // console.log(`- finished loginUser 🏁`);
     },
     setNewVideoId: (state, action) => {
-      state.value.newVideoId = action.payload.newVideoId;
-      state.value.newVideoFilename = action.payload.fileName;
+      state.newVideoId = action.payload.newVideoId;
+      state.newVideoFilename = action.payload.fileName;
     },
     logoutUser: (state) => {
-      console.log(`- dans Redux: logoutUser 🔔`);
-      state.value.token = null;
-      state.value.username = null;
-      state.value.email = null;
-      state.value.newVideoId = null;
-      state.value.newVideoFilename = null;
-      console.log(`- finished logoutUser 🏁`);
+      // console.log(`- dans Redux: logoutUser 🔔`);
+      state.token = null;
+      state.username = null;
+      state.email = null;
+      state.newVideoId = null;
+      state.newVideoFilename = null;
+      state.navExpandObject = {
+        ManageDb: false,
+        VolleyballAdmin: false,
+        ScriptingAndVideo: false,
+      };
+    },
+    toggleNavExpandItem: (state, action) => {
+      const item = action.payload;
+      state.navExpandObject[item] = !state.navExpandObject[item];
     },
   },
 });
 
-export const { loginUser, setNewVideoId, logoutUser } = userSlice.actions;
+export const { loginUser, setNewVideoId, logoutUser, toggleNavExpandItem } =
+  userSlice.actions;
 export default userSlice.reducer;

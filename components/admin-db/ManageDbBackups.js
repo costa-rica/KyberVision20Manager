@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import styles from "../../styles/AdminDb.module.css";
-import TemplateView from "../TemplateView";
+import styles from "../../styles/admin-db/AdminDb.module.css";
+// import TemplateView from "../TemplateViewOBE";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function ManageDbBackups() {
   const [arrayBackups, setArrayBackups] = useState([]);
   const [arrayRowCountsByTable, setArrayRowCountsByTable] = useState([]);
-  const userReducer = useSelector((state) => state.user.value);
+  const userReducer = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [file, setFile] = useState(null);
 
@@ -145,61 +145,61 @@ export default function ManageDbBackups() {
   };
 
   return (
-    <TemplateView>
-      <main className={styles.main}>
-        <div className={styles.divMain}>
-          <h1>Back up database</h1>
-          <div>
-            <button className={styles.button} onClick={createBackup}>
-              Create a Backup
-            </button>
-          </div>
-          <div className={styles.divDbDescription}>
-            <h3>Row Counts by Table</h3>
-            <ul>
-              {arrayRowCountsByTable.map((item, index) => (
-                <li key={index}>
-                  {item.tableName}: {item.rowCount}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className={styles.divManageDbBackups}>
-            <h3>Backups</h3>
-            <ul>
-              {arrayBackups.map((backup, index) => (
-                <li key={index} className={styles.liBackups}>
-                  <button
-                    className={styles.btnDownload}
-                    onClick={() => fetchBackupZipFile(backup)}
-                  >
-                    {backup}
-                  </button>
-                  <button
-                    className={styles.btnDelete}
-                    onClick={() => handleDelete(backup)}
-                  >
-                    X
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
+    // <TemplateView>
+    <main className={styles.main}>
+      <div className={styles.divMain}>
+        <h1>Back up database</h1>
+        <div>
+          <button className={styles.button} onClick={createBackup}>
+            Create a Backup
+          </button>
         </div>
-      </main>
-    </TemplateView>
+        <div className={styles.divDbDescription}>
+          <h3>Row Counts by Table</h3>
+          <ul>
+            {arrayRowCountsByTable.map((item, index) => (
+              <li key={index}>
+                {item.tableName}: {item.rowCount}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className={styles.divManageDbBackups}>
+          <h3>Backups</h3>
+          <ul>
+            {arrayBackups.map((backup, index) => (
+              <li key={index} className={styles.liBackups}>
+                <button
+                  className={styles.btnDownload}
+                  onClick={() => fetchBackupZipFile(backup)}
+                >
+                  {backup}
+                </button>
+                <button
+                  className={styles.btnDelete}
+                  onClick={() => handleDelete(backup)}
+                >
+                  X
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </main>
+    // </TemplateView>
   );
 }
 
 // import { useState, useEffect } from "react";
-// import styles from "../../styles/AdminDb.module.css";
-// import TemplateView from "../TemplateView";
+// import styles from "../../styles/admin-db/AdminDb.module.css";
+// import TemplateView from "../common/TemplateView";
 // import { useDispatch, useSelector } from "react-redux";
 
 // export default function ManageDbBackups() {
 //   const [arrayBackups, setArrayBackups] = useState([]);
 //   const [arrayRowCountsByTable, setArrayRowCountsByTable] = useState([]);
-//   const userReducer = useSelector((state) => state.user.value);
+//   const userReducer = useSelector((state) => state.user);
 //   const dispatch = useDispatch();
 //   const [file, setFile] = useState(null);
 //   useEffect(() => {

@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 // import { setNewVideoId } from "../reducers/user";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import TemplateView from "../TemplateView";
-import TableVideos from "../TableVideos";
+import TemplateView from "../common/TemplateView";
+import TableVideos from "../Table03Videos";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faRectangleXmark,
@@ -20,7 +20,7 @@ export default function VideosTable() {
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false); // State to control modal visibility
   const [uploadMethod, setUploadMethod] = useState("youtube");
   const [deleteVideoObj, setDeleteVideoObj] = useState({});
-  const userReducer = useSelector((state) => state.user.value);
+  const userReducer = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const router = useRouter();
 

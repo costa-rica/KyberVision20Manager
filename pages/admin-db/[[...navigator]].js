@@ -1,31 +1,38 @@
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import TemplateView from "../../components/TemplateView";
+// import TemplateView from "../../components/TemplateViewOBE";
+import TemplateView from "../../components/common/TemplateView";
 
 const AdminDbTable = () => {
   const router = useRouter();
-  const { name_of_table } = router.query;
+  let route = Array.isArray(router.query.navigator)
+    ? router.query.navigator[0]
+    : undefined;
+
+  if (!route) {
+    route = "main"; // fallback to main if /admin-db is visited
+  }
 
   const TableComponent = dynamic(() => {
-    console.log("-----> name_of_table", name_of_table);
-    if (name_of_table === "manage-db-backups") {
+    console.log("-----> route", route);
+    if (route === "manage-db-backups") {
       return import(`../../components/admin-db/ManageDbBackups`).catch(
         () => () => <p>Table Not Found</p>
       );
-    } else if (name_of_table === "manage-db-uploads") {
+    } else if (route === "manage-db-uploads") {
       return import(`../../components/admin-db/ManageDbUploads`).catch(
         () => () => <p>Table Not Found</p>
       );
-    } else if (name_of_table === "manage-db-deletes") {
+    } else if (route === "manage-db-deletes") {
       return import(`../../components/admin-db/ManageDbDeletes`).catch(
         () => () => <p>Table Not Found</p>
       );
-    } else if (name_of_table === "tables") {
-      return import(`../../components/admin-db/Tables`).catch(() => () => (
+    } else if (route === "main") {
+      return import(`../../components/admin-db/Main`).catch(() => () => (
         <p>Table Not Found</p>
       ));
     } else {
-      return import(`../../components/admin-db/${name_of_table}Table`).catch(
+      return import(`../../components/admin-db/${route}Table`).catch(
         () => () => <p>Table Not Found</p>
       );
     }

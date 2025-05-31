@@ -1,8 +1,8 @@
-import styles from "../../styles/UsersTable.module.css";
+import styles from "../../styles/AdminVolleyball/SessionsTable.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import TemplateView from "../TemplateView";
+import TemplateView from "../common/TemplateView";
 import DynamicDbTable from "../subcomponents/DynamicDbTable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -19,7 +19,7 @@ export default function UsersTable() {
   const [usersList, setUsersList] = useState([]);
   const [columns, setColumns] = useState([]);
   const [showPassword, setShowPassword] = useState(false); // 🔹 Toggle password visibility
-  const userReducer = useSelector((state) => state.user.value);
+  const userReducer = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -127,7 +127,7 @@ export default function UsersTable() {
                 if (field === "isAdminForKvManagerWebsite") {
                   return (
                     <div key={field} className={styles.inputGroup}>
-                      <label>{field}:</label>
+                      <label className={"tdWrapAllGlobal"}>{field}:</label>
                       <div className={styles.radioGroup}>
                         <label>
                           <input
@@ -233,7 +233,7 @@ export default function UsersTable() {
 // import { useDispatch, useSelector } from "react-redux";
 // import { useRouter } from "next/router";
 // import { useState, useEffect } from "react";
-// import TemplateView from "../TemplateView";
+// import TemplateView from "../common/TemplateView";
 // import DynamicDbTable from "../subcomponents/DynamicDbTable";
 
 // export default function UsersTable() {
@@ -247,7 +247,7 @@ export default function UsersTable() {
 
 //   const [usersList, setUsersList] = useState([]);
 //   const [columns, setColumns] = useState([]);
-//   const userReducer = useSelector((state) => state.user.value);
+//   const userReducer = useSelector((state) => state.user);
 //   const dispatch = useDispatch();
 //   const router = useRouter();
 

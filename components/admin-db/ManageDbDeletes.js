@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import styles from "../../styles/AdminDb.module.css";
-import TemplateView from "../TemplateView";
+import styles from "../../styles/admin-db/AdminDb.module.css";
+// import TemplateView from "../TemplateViewOBE";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function ManageDbDeletes() {
   const [arrayRowCountsByTable, setArrayRowCountsByTable] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedTable, setSelectedTable] = useState(null);
-  const userReducer = useSelector((state) => state.user.value);
+  const userReducer = useSelector((state) => state.user);
 
   useEffect(() => {
     fetchRowCountsByTable();
@@ -66,54 +66,53 @@ export default function ManageDbDeletes() {
   };
 
   return (
-    <TemplateView>
-      <main className={styles.main}>
-        <div className={styles.divMain}>
-          <div className={styles.divDbDescription}>
-            <h1>
-              <u>Delete Tables</u>
-            </h1>
+    // <TemplateView>
+    <main className={styles.main}>
+      <div className={styles.divMain}>
+        <div className={styles.divDbDescription}>
+          <h1>
+            <u>Delete Tables</u>
+          </h1>
 
-            <p>Notes for deleting</p>
-            <ul>
-              <li>
-                Deleting tables with relationships defined could cause cascading
-                deletes for exampel deleting Player table will cause all
-                PlayerContracts to delete
-              </li>
-            </ul>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>Table Name</th>
-                  <th>Row Count</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {arrayRowCountsByTable.length > 0 &&
-                  arrayRowCountsByTable.map((item, index) => (
-                    <tr key={index} className={styles.tableRow}>
-                      <td>{item.tableName}</td>
-                      <td>{item.rowCount}</td>
-                      <td>
-                        {item.tableName != "User" &&
-                          item.tableName != "GroupContract" && (
-                            <button
-                              className={styles.btnDelete}
-                              onClick={() => confirmDeleteTable(item.tableName)}
-                            >
-                              Delete Table
-                            </button>
-                          )}
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
+          <p>Notes for deleting</p>
+          <ul>
+            <li>
+              Deleting tables with relationships defined could cause cascading
+              deletes for exampel deleting Player table will cause all
+              PlayerContracts to delete
+            </li>
+          </ul>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Table Name</th>
+                <th>Row Count</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {arrayRowCountsByTable.length > 0 &&
+                arrayRowCountsByTable.map((item, index) => (
+                  <tr key={index} className={styles.tableRow}>
+                    <td>{item.tableName}</td>
+                    <td>{item.rowCount}</td>
+                    <td>
+                      {item.tableName != "User" &&
+                        item.tableName != "GroupContract" && (
+                          <button
+                            className={styles.btnDelete}
+                            onClick={() => confirmDeleteTable(item.tableName)}
+                          >
+                            Delete Table
+                          </button>
+                        )}
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </div>
-      </main>
+      </div>
       {showModal && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
@@ -132,22 +131,23 @@ export default function ManageDbDeletes() {
           </div>
         </div>
       )}
-    </TemplateView>
+    </main>
+    // </TemplateView>
   );
 }
 
 /// --- semi old ---
 
 // import { useState, useEffect } from "react";
-// import styles from "../../styles/AdminDb.module.css";
-// import TemplateView from "../TemplateView";
+// import styles from "../../styles/admin-db/AdminDb.module.css";
+// import TemplateView from "../common/TemplateView";
 // import { useDispatch, useSelector } from "react-redux";
 
 // export default function ManageDbDeletes() {
 //   const [arrayRowCountsByTable, setArrayRowCountsByTable] = useState([]);
 //   const [showModal, setShowModal] = useState(false);
 //   const [selectedTable, setSelectedTable] = useState(null);
-//   const userReducer = useSelector((state) => state.user.value);
+//   const userReducer = useSelector((state) => state.user);
 
 //   useEffect(() => {
 //     fetchRowCountsByTable();
@@ -253,14 +253,14 @@ export default function ManageDbDeletes() {
 /// ---- OLD -----
 
 // import { useState, useEffect } from "react";
-// import styles from "../../styles/AdminDb.module.css";
-// import TemplateView from "../TemplateView";
+// import styles from "../../styles/admin-db/AdminDb.module.css";
+// import TemplateView from "../common/TemplateView";
 // import { useDispatch, useSelector } from "react-redux";
 
 // // OLD DbUploads
 // export default function ManageDbDeletes() {
 //   const [arrayRowCountsByTable, setArrayRowCountsByTable] = useState([]);
-//   const userReducer = useSelector((state) => state.user.value);
+//   const userReducer = useSelector((state) => state.user);
 
 //   useEffect(() => {
 //     fetchRowCountsByTable();

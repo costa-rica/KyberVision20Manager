@@ -1,9 +1,9 @@
-import styles from "../styles/Register.module.css";
+import styles from "../../styles/ManageUser/Register.module.css";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../reducers/user";
+import { loginUser } from "../../reducers/user";
 import { useRouter } from "next/router";
-import InputPassword from "../components/InputPassword";
+import InputPassword from "../InputPassword";
 import Image from "next/image";
 
 export default function Register() {
@@ -11,7 +11,7 @@ export default function Register() {
   const [password, passwordSetter] = useState("");
   const router = useRouter();
   const dispatch = useDispatch();
-  // const user = useSelector((state) => state.user.value);
+  // const user = useSelector((state) => state.user);
 
   const sendPasswordBackToParent = (passwordFromInputPasswordElement) => {
     console.log(
@@ -57,7 +57,7 @@ export default function Register() {
       if (resJson.user.isAdminForKvManagerWebsite) {
         // resJson.email = email;
         dispatch(loginUser(resJson));
-        router.push("/admin-db/tables");
+        router.push("/admin-db");
       } else {
         alert(
           "You have been registered but are still not authorized to login. Contact Kyber Vision for access."

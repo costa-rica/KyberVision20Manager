@@ -1,9 +1,9 @@
 // import styles from "../../styles/TeamsTable.module.css";
-import styles from "../../styles/MatchesTable.module.css";
+import styles from "../../styles/AdminVolleyball/SessionsTable.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import TemplateView from "../TemplateView";
+import TemplateView from "../common/TemplateView";
 import DynamicDbTable from "../subcomponents/DynamicDbTable";
 
 export default function TeamsTable() {
@@ -16,7 +16,7 @@ export default function TeamsTable() {
 
   const [teamsList, setTeamsList] = useState([]);
   const [columns, setColumns] = useState([]);
-  const userReducer = useSelector((state) => state.user.value);
+  const userReducer = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -145,11 +145,11 @@ export default function TeamsTable() {
   );
 }
 
-// import styles from "../../styles/MatchesTable.module.css";
+// import styles from "../../styles/AdminVolleyball/SessionsTable.module.css";
 // import { useDispatch, useSelector } from "react-redux";
 // import { useRouter } from "next/router";
 // import { useState, useEffect } from "react";
-// import TemplateView from "../TemplateView";
+// import TemplateView from "../common/TemplateView";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
@@ -161,7 +161,7 @@ export default function TeamsTable() {
 //   const [coachName, setCoachName] = useState("");
 //   const [visibleToAll, setVisibleToAll] = useState("");
 //   const [teamsList, setTeamsList] = useState([]);
-//   const userReducer = useSelector((state) => state.user.value);
+//   const userReducer = useSelector((state) => state.user);
 //   const dispatch = useDispatch();
 //   const router = useRouter();
 

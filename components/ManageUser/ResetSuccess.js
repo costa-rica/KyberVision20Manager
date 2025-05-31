@@ -1,3 +1,4 @@
+// OLD /components/forgot-password/ResetSuccess.js
 // /components/forgot-password/ResetSuccess.js
 import styles from "../../styles/Register.module.css";
 import Image from "next/image";

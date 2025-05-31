@@ -1,3 +1,5 @@
+/// old /components/forgot-password/ResetPassword.js
+
 // /components/forgot-password/ResetPassword.js
 import { useState } from "react";
 import { useRouter } from "next/router";

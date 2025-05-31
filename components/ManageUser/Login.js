@@ -1,23 +1,23 @@
-import styles from "../styles/Login.module.css";
+import styles from "../../styles/ManageUser/Login.module.css";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../reducers/user";
+import { loginUser } from "../../reducers/user";
 import { useRouter } from "next/router";
-import InputPassword from "../components/InputPassword";
+import InputPassword from "../InputPassword";
 import Image from "next/image";
-import TemplateView from "../components/TemplateView";
+import TemplateView from "../../components/common/TemplateView";
 
 export default function Login() {
   const [email, emailSetter] = useState("");
   const [password, passwordSetter] = useState("");
   const dispatch = useDispatch();
   const router = useRouter();
-  const userReducer = useSelector((state) => state.user.value);
+  const userReducer = useSelector((state) => state.user);
 
   useEffect(() => {
     if (userReducer.token) {
       // Redirect if token exists
-      router.push("/admin-db/tables");
+      router.push("/admin-db");
     }
   }, [userReducer]); // Run effect if token changes
 
@@ -56,7 +56,7 @@ export default function Login() {
       if (resJson.user.isAdminForKvManagerWebsite) {
         resJson.email = email;
         dispatch(loginUser(resJson));
-        router.push("/admin-db/tables");
+        router.push("/admin-db");
       } else {
         alert("You are not authorized to login.");
       }

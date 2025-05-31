@@ -1,20 +1,21 @@
-import styles from "../../styles/MatchesTable.module.css";
+// import styles from "../../styles/LeagueTable.module.css";
+import styles from "../../styles/AdminVolleyball/SessionsTable.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import TemplateView from "../TemplateView";
+import TemplateView from "../common/TemplateView";
 import DynamicDbTable from "../subcomponents/DynamicDbTable";
 
-export default function SyncContractTable() {
+export default function LeagueTable() {
   const [formData, setFormData] = useState({
-    scriptId: "",
-    videoId: "",
-    deltaTime: "",
+    id: "",
+    name: "",
+    category: "",
   });
 
-  const [syncContractsList, setSyncContractsList] = useState([]);
+  const [leaguesList, setLeaguesList] = useState([]);
   const [columns, setColumns] = useState([]);
-  const userReducer = useSelector((state) => state.user.value);
+  const userReducer = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -22,12 +23,12 @@ export default function SyncContractTable() {
     if (!userReducer.token) {
       router.push("/login");
     }
-    fetchSyncContractsList();
+    fetchLeaguesList();
   }, [userReducer]);
 
-  const fetchSyncContractsList = async () => {
+  const fetchLeaguesList = async () => {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin-db/table/SyncContract`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin-db/table/League`,
       {
         headers: { Authorization: `Bearer ${userReducer.token}` },
       }
@@ -35,13 +36,13 @@ export default function SyncContractTable() {
 
     if (response.status === 200) {
       const resJson = await response.json();
-      setSyncContractsList(resJson.data);
+      setLeaguesList(resJson.data);
 
       if (resJson.data.length > 0) {
-        setColumns(Object.keys(resJson.data[0])); // Extract column names dynamically
+        setColumns(Object.keys(resJson.data[0]));
       }
     } else {
-      console.log(`Error fetching sync contracts: ${response.status}`);
+      console.log(`Error fetching leagues: ${response.status}`);
     }
   };
 
@@ -49,7 +50,7 @@ export default function SyncContractTable() {
     e.preventDefault();
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sync-contracts/update-or-create`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/leagues/update-or-create`,
       {
         method: "POST",
         headers: {
@@ -59,24 +60,20 @@ export default function SyncContractTable() {
         body: JSON.stringify(formData),
       }
     );
-    console.log(response.status);
+
     if (response.status === 201 || response.status === 200) {
-      alert("SyncContract created successfully!");
-      setFormData({
-        scriptId: "",
-        videoId: "",
-        deltaTime: "",
-      });
-      fetchSyncContractsList();
+      alert(`League ${formData.id ? "updated" : "created"} successfully!`);
+      setFormData({ id: "", name: "", category: "" });
+      fetchLeaguesList();
     } else {
       const errorJson = await response.json();
       alert(`Error: ${errorJson.error || response.statusText}`);
     }
   };
 
-  const handleDelete = async (syncContractId) => {
+  const handleDelete = async (leagueId) => {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sync-contracts/${syncContractId}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/leagues/${leagueId}`,
       {
         method: "DELETE",
         headers: { Authorization: `Bearer ${userReducer.token}` },
@@ -84,18 +81,17 @@ export default function SyncContractTable() {
     );
 
     if (response.status === 200) {
-      alert("SyncContract deleted successfully!");
-      fetchSyncContractsList();
+      alert("League deleted successfully!");
+      fetchLeaguesList();
     } else {
-      alert(`Error deleting SyncContract: ${response.status}`);
+      alert(`Error deleting league: ${response.status}`);
     }
   };
 
   const handleSelectRow = (id) => {
-    const selectedRow = syncContractsList.find((row) => row.id === id);
+    const selectedRow = leaguesList.find((row) => row.id === id);
     if (selectedRow) {
-      const { createdAt, updatedAt, ...filteredRow } = selectedRow;
-      setFormData(filteredRow);
+      setFormData(selectedRow);
     }
   };
 
@@ -104,19 +100,21 @@ export default function SyncContractTable() {
       <div>
         <main className={styles.main}>
           <div className={styles.mainTop}>
-            <h1 className={styles.title}>Create SyncContract</h1>
+            <h1 className={styles.title}>Manage Leagues</h1>
             <div>* Note: For new rows do not enter a value for "id"</div>
           </div>
 
-          {/* SyncContract Form */}
+          {/* League Form */}
           <div className={styles.formContainer}>
             <form onSubmit={handleSubmit} className={styles.form}>
-              {Object.keys(formData).map((field) => {
-                return (
+              {Object.keys(formData)
+                .filter(
+                  (field) => field !== "createdAt" && field !== "updatedAt"
+                ) // Exclude timestamps
+                .map((field) => (
                   <div key={field} className={styles.inputGroup}>
                     <label htmlFor={field}>{field}:</label>
                     <input
-                      type="text"
                       className={styles.inputField}
                       onChange={(e) =>
                         setFormData({ ...formData, [field]: e.target.value })
@@ -125,17 +123,17 @@ export default function SyncContractTable() {
                       required={field !== "id"}
                     />
                   </div>
-                );
-              })}
+                ))}
               <button type="submit" className={styles.submitButton}>
-                Create SyncContract
+                {formData.id ? "Update League" : "Create League"}
               </button>
             </form>
           </div>
 
+          {/* Leagues Table */}
           <DynamicDbTable
             columnNames={columns}
-            rowData={syncContractsList}
+            rowData={leaguesList}
             onDeleteRow={handleDelete}
             selectedRow={handleSelectRow}
           />

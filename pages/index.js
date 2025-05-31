@@ -1,7 +1,7 @@
-import Login from "./login";
+import Login from "../components/ManageUser/Login";
 
-function Index() {
+export default function Index() {
   return <Login />;
 }
 
-export default Index;
+//  Index;

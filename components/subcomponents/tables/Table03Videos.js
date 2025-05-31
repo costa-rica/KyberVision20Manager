@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import styles from "../styles/TableVideos.module.css";
+import styles from "../../../styles/tables/Table03Videos.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faRectangleXmark,
   faCircleMinus,
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function TableVideos(props) {
+export default function Table03Videos(props) {
   const [videosArray, setVideosArray] = useState([]);
 
   // useEffect(() => {

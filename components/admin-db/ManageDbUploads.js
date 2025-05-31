@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import styles from "../../styles/AdminDb.module.css";
-import TemplateView from "../TemplateView";
+import styles from "../../styles/admin-db/AdminDb.module.css";
+// import TemplateView from "../TemplateViewOBE";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function ManageDbUploads() {
   const [arrayBackups, setArrayBackups] = useState([]);
   const [arrayRowCountsByTable, setArrayRowCountsByTable] = useState([]);
-  const userReducer = useSelector((state) => state.user.value);
+  const userReducer = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -110,80 +110,80 @@ export default function ManageDbUploads() {
   };
 
   return (
-    <TemplateView>
-      <main className={styles.main}>
-        <div className={styles.divMain}>
-          <h1>Upload to Database</h1>
+    // <TemplateView>
+    <main className={styles.main}>
+      <div className={styles.divMain}>
+        <h1>Upload to Database</h1>
 
-          <div className={styles.divImportData}>
-            <p>
-              Upload a .zip file of your database. <u>Rules for uploads:</u>
-            </p>
-            <ul>
-              <li>Only .zip files are accepted.</li>
-              <li>Missing tables will be ignored.</li>
-              <li>Empty cell values are ok (except for id column)</li>
-              <li>
-                Must have an id for each row that is not already in the table
-              </li>
-              <li>No missing columns.</li>
-              <li>
-                Contrary to db schema, names of columns in CSV should be in
-                camelCase but that is how the Java Model properties are named.
-              </li>
-              <li>
-                Also, names of files should follow naming conventions found in
-                "Row Counts by Table" (yes, also contrary to db schema). They
-                are the names of the JavaScript Model objects - all singular.
-              </li>
-            </ul>
+        <div className={styles.divImportData}>
+          <p>
+            Upload a .zip file of your database. <u>Rules for uploads:</u>
+          </p>
+          <ul>
+            <li>Only .zip files are accepted.</li>
+            <li>Missing tables will be ignored.</li>
+            <li>Empty cell values are ok (except for id column)</li>
+            <li>
+              Must have an id for each row that is not already in the table
+            </li>
+            <li>No missing columns.</li>
+            <li>
+              Contrary to db schema, names of columns in CSV should be in
+              camelCase but that is how the Java Model properties are named.
+            </li>
+            <li>
+              Also, names of files should follow naming conventions found in
+              "Row Counts by Table" (yes, also contrary to db schema). They are
+              the names of the JavaScript Model objects - all singular.
+            </li>
+          </ul>
 
-            <form onSubmit={handleSubmit} className={styles.form}>
-              <div className={styles.divInputGroup}>
-                <label htmlFor="dbFileUpload">Upload DB .zip file:</label>
-                <input
-                  id="dbFileUpload"
-                  type="file"
-                  accept=".zip"
-                  onChange={handleFileChange}
-                />
-              </div>
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <div className={styles.divInputGroup}>
+              <label htmlFor="dbFileUpload">Upload DB .zip file:</label>
+              <input
+                id="dbFileUpload"
+                type="file"
+                accept=".zip"
+                onChange={handleFileChange}
+              />
+            </div>
 
-              <button type="submit" className={styles.submitButton}>
-                Upload
-              </button>
-            </form>
-          </div>
+            <button type="submit" className={styles.submitButton}>
+              Upload
+            </button>
+          </form>
+        </div>
 
-          <div className={styles.divDbDescription}>
-            <h1>Row Counts by Table</h1>
-            <ul>
-              {arrayRowCountsByTable.length > 0 &&
-                arrayRowCountsByTable.map((item, index) => (
-                  <li key={index}>
-                    {item.tableName}: {item.rowCount}
-                  </li>
-                ))}
-            </ul>
-          </div>
+        <div className={styles.divDbDescription}>
+          <h1>Row Counts by Table</h1>
+          <ul>
+            {arrayRowCountsByTable.length > 0 &&
+              arrayRowCountsByTable.map((item, index) => (
+                <li key={index}>
+                  {item.tableName}: {item.rowCount}
+                </li>
+              ))}
+          </ul>
+        </div>
 
-          {/* Upload Progress Modal */}
-          {isUploading && (
-            <div className={styles.modal}>
-              <div className={styles.modalContent}>
-                <h2>Uploading...</h2>
-                <p>{uploadProgress}%</p>
-                <div className={styles.progressBar}>
-                  <div
-                    className={styles.progressFill}
-                    style={{ width: `${uploadProgress}%` }}
-                  ></div>
-                </div>
+        {/* Upload Progress Modal */}
+        {isUploading && (
+          <div className={styles.modal}>
+            <div className={styles.modalContent}>
+              <h2>Uploading...</h2>
+              <p>{uploadProgress}%</p>
+              <div className={styles.progressBar}>
+                <div
+                  className={styles.progressFill}
+                  style={{ width: `${uploadProgress}%` }}
+                ></div>
               </div>
             </div>
-          )}
-        </div>
-      </main>
-    </TemplateView>
+          </div>
+        )}
+      </div>
+    </main>
+    // </TemplateView>
   );
 }

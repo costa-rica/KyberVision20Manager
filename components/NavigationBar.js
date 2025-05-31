@@ -8,7 +8,7 @@ import Image from "next/image";
 import { logoutUser } from "../reducers/user";
 
 export default function NavigationBar({ onlyVersionsVisible }) {
-  const userReducer = useSelector((state) => state.user.value);
+  const userReducer = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [menuOpen, setMenuOpen] = useState(false);
   const [uploadDropdownOpen, setUploadDropdownOpen] = useState(false);
@@ -91,7 +91,7 @@ export default function NavigationBar({ onlyVersionsVisible }) {
           >
             <li className={styles.divHeaderRightLi}>
               {onlyVersionsVisible ? null : (
-                <button onClick={() => router.push("/admin-db/tables")}>
+                <button onClick={() => router.push("/admin-db")}>
                   Admin Database
                 </button>
               )}

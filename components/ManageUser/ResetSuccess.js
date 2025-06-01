@@ -1,6 +1,6 @@
 // OLD /components/ManageUser/ResetSuccess.js
 // /components/ManageUser/ResetSuccess.js
-import styles from "../../styles/Register.module.css";
+import styles from "../../styles/ManageUser/Register.module.css";
 import Image from "next/image";
 
 const ResetSuccess = () => {

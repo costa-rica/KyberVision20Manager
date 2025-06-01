@@ -3,7 +3,7 @@
 // /components/ManageUser/ResetPassword.js
 import { useState } from "react";
 import { useRouter } from "next/router";
-import styles from "../../styles/ResetPassword.module.css";
+import styles from "../../styles/ManageUser/ResetPassword.module.css";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";

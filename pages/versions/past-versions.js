@@ -1,4 +1,4 @@
-import TemplateView from "../../components/TemplateView";
+import TemplateView from "../../components/common/TemplateView";
 import styles from "../../styles/Versions.module.css";
 import Version0020 from "../../components/versions/version0-02-0";
 import Version0050 from "../../components/versions/version0-05-0";

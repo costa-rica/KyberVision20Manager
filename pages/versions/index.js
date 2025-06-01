@@ -1,4 +1,4 @@
-import TemplateView from "../../components/TemplateView";
+import TemplateView from "../../components/common/TemplateView";
 import styles from "../../styles/Versions.module.css";
 import Link from "next/link";
 import Version0112 from "../../components/versions/version0-11-2";

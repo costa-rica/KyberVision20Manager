@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 // import TemplateView from "../../components/TemplateViewOBE";
-import TemplateView from "../../components/common/TemplateView";
+// import TemplateView from "../../components/common/TemplateView";
 
 const AdminDbTable = () => {
   const router = useRouter();
@@ -15,9 +15,9 @@ const AdminDbTable = () => {
 
   const TableComponent = dynamic(() => {
     console.log("-----> route", route);
-    if (route === "contracts-team-player") {
+    if (route === "contract-team-player") {
       return import(
-        `../../components/AdminVolleyball/ContractsTeamPlayerTable`
+        `../../components/AdminVolleyball/ContractTeamPlayerTable`
       ).catch(() => () => <p>Table Not Found</p>);
     } else if (route === "leagues") {
       return import(`../../components/AdminVolleyball/LeaguesTable`).catch(
@@ -46,11 +46,7 @@ const AdminDbTable = () => {
     }
   });
 
-  return (
-    <TemplateView>
-      <TableComponent />
-    </TemplateView>
-  );
+  return <TableComponent />;
 };
 
 export default AdminDbTable;

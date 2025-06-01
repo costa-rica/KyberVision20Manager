@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../reducers/user";
 import { useRouter } from "next/router";
-import InputPassword from "../InputPassword";
+import InputPassword from "../common/InputPassword";
 import Image from "next/image";
 import TemplateView from "../../components/common/TemplateView";
 

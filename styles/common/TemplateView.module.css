@@ -1,3 +1,7 @@
+.divTemplateViewScreen {
+  padding: 0;
+  margin: 0;
+}
 .headerCustom {
   background-color: var(--bg-navbar-top);
   position: fixed;
@@ -13,7 +17,7 @@
 .headerCustomNonProduction {
   background-color: orange;
 }
-.divMain {
+.divTemplateViewMain {
   display: flex;
   flex-direction: row;
   margin-top: var(--height-header);
@@ -55,6 +59,11 @@
 }
 .divLeftChildren {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border: 4px dashed black; */
 }
 .divRightMenu {
   background-color: var(--bg-navbar-top);
@@ -64,7 +73,8 @@
   right: 0;
   top: 0;
   width: var(--width-side-menu);
-  height: 100vh;
+  margin-top: var(--height-header);
+  height: calc(100vh - var(--height-header));
 }
 .divRightMenuClose {
   width: var(--width-side-menu);
@@ -106,8 +116,9 @@
     /* height: var(--height-header-top-large); */
     height: var(--height-header-large);
   }
-  .divMain {
-    margin-top: var(--height-header-large);
+  .divTemplateViewMain {
+    /* margin-top: var(--height-header-large); */
+    margin-top: 11vh;
   }
   .divRightMenu {
     /* margin-top: 10vh;

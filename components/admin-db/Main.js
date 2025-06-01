@@ -11,6 +11,7 @@ export default function Main() {
   const userReducer = useSelector((state) => state.user);
   const [selectedTable, setSelectedTable] = useState("User"); // Default selection
   const [tableData, setTableData] = useState([]);
+  // const [checkboxKeys, setCheckboxKeys] = useState([]);
   const [tableColumns, setTableColumns] = useState(null);
   const [visibleKeys, setVisibleKeys] = useState([]);
   const [isOpenAreYouSure, setIsOpenAreYouSure] = useState(false);
@@ -25,7 +26,9 @@ export default function Main() {
   useEffect(() => {
     if (tableData.length === 0) return;
 
-    const allKeys = Object.keys(tableData[0]);
+    const { id, ...restOfElements } = tableData[0];
+    const allKeys = Object.keys(restOfElements);
+    // const allKeys = Object.keys(tableData[0]);
     const defaultHidden = ["createdAt", "updatedAt"];
     const visible = allKeys.filter((key) => !defaultHidden.includes(key));
 
@@ -40,50 +43,51 @@ export default function Main() {
     const totalColumns = visibleKeys.length;
     const tableWidth = 60;
 
+    const columnId = columnHelper.accessor("id", {
+      id: "id",
+      header: () => (
+        <div style={{ width: `1rem` }} className="tdWrapAllGlobal">
+          <p>id</p>
+        </div>
+      ),
+      enableSorting: true,
+      cell: (info) => (
+        <div className={[styles.divTableCell]}>
+          <button
+            onClick={() => handleSelectRow(info.getValue())}
+            className={styles.selectButton}
+          >
+            {info.getValue()}
+          </button>
+        </div>
+      ),
+    });
+
     const dynamicCols = visibleKeys.map((key) => {
-      if (key === "id") {
-        return columnHelper.accessor(key, {
-          id: key,
-          header: () => (
-            <div style={{ width: `1rem` }} className="tdWrapAllGlobal">
-              <p>{key}</p>
-            </div>
-          ),
-          enableSorting: true,
-          cell: (info) => (
-            <div className={[styles.divTableCell]}>
-              <button onClick={() => handleSelectRow(info.getValue())}>
-                {info.getValue()}
-              </button>
-            </div>
-          ),
-        });
-      } else {
-        return columnHelper.accessor(key, {
-          id: key,
-          header: () => (
-            <div
-              style={{ width: `${tableWidth / totalColumns}rem` }}
-              className="tdWrapAllGlobal"
-            >
-              <p>{key}</p>
-            </div>
-          ),
-          enableSorting: true,
-          cell: (info) => (
-            <div
-              style={{ width: `${tableWidth / totalColumns}rem` }}
-              className={[styles.divTableCell]}
-            >
-              {key.startsWith("is")
-                ? info.getValue()
-                  ? "true"
-                  : "false"
-                : info.getValue()}
-            </div>
-          ),
-        });
-      }
+      return columnHelper.accessor(key, {
+        id: key,
+        header: () => (
+          <div
+            style={{ width: `${tableWidth / totalColumns}rem` }}
+            className="tdWrapAllGlobal"
+          >
+            <p>{key}</p>
+          </div>
+        ),
+        enableSorting: true,
+        cell: (info) => (
+          <div
+            style={{ width: `${tableWidth / totalColumns}rem` }}
+            className={[styles.divTableCell]}
+          >
+            {key.startsWith("is")
+              ? info.getValue()
+                ? "true"
+                : "false"
+              : info.getValue()}
+          </div>
+        ),
+      });
     });
 
     const deleteColumn = columnHelper.display({
@@ -108,7 +112,7 @@ export default function Main() {
       ),
     });
 
-    setTableColumns([...dynamicCols, deleteColumn]);
+    setTableColumns([columnId, ...dynamicCols, deleteColumn]);
   }, [tableData, visibleKeys]);
 
   useEffect(() => {
@@ -136,6 +140,8 @@ export default function Main() {
 
       if (result.result && Array.isArray(result.data)) {
         setTableData(result.data);
+
+        // setCheckboxKeys(Object.keys(result.data[0]));
         console.log("----Table Data----");
         console.log(result.data);
         console.log("-------------    ----");
@@ -151,62 +157,6 @@ export default function Main() {
       // setColumns([]);
     }
   };
-
-  // useEffect(() => {
-  //   if (tableData.length === 0) return;
-  //   const keys = Object.keys(tableData[0]);
-  //   setVisibleKeys(keys); // 👈 initialize visible keys
-  //   const columnHelper = createColumnHelper();
-  //   const totalColumns = visibleKeys.length;
-  //   const tableWidth = 60;
-
-  //   const dynamicCols = visibleKeys.map((key) =>
-  //     columnHelper.accessor(key, {
-  //       id: key,
-  //       header: () => (
-  //         <div
-  //           style={{ width: `${tableWidth / totalColumns}rem` }}
-  //           className="tdWrapAllGlobal"
-  //         >
-  //           <p>{key.toUpperCase()}</p>
-  //         </div>
-  //       ),
-  //       enableSorting: true,
-  //       cell: (info) => (
-  //         <div
-  //           style={{ width: `${tableWidth / totalColumns}rem` }}
-  //           className="tdWrapAllGlobal"
-  //         >
-  //           {info.getValue()}
-  //         </div>
-  //       ),
-  //     })
-  //   );
-  //   // const dynamicCols = Object.keys(tableData[0]).map((key) =>
-  //   //   columnHelper.accessor(key, {
-  //   //     id: key,
-  //   //     header: () => (
-  //   //       <div
-  //   //         style={{ width: `${tableWidth / totalColumns}rem` }}
-  //   //         className="tdWrapAllGlobal"
-  //   //       >
-  //   //         <p>{key.toUpperCase()}</p>
-  //   //       </div>
-  //   //     ),
-  //   //     enableSorting: true,
-  //   //     cell: (info) => (
-  //   //       <div
-  //   //         style={{ width: `${tableWidth / totalColumns}rem` }}
-  //   //         className="tdWrapAllGlobal"
-  //   //       >
-  //   //         {info.getValue()}
-  //   //       </div>
-  //   //     ),
-  //   //   })
-  //   // );
-
-  //   setTableColumns(dynamicCols);
-  // }, [tableData, visibleKeys]);
 
   const handleDelete = async (id) => {
     console.log("Deleting script with ID:", id);
@@ -322,16 +272,19 @@ export default function Main() {
                 </div>
               </div>
               <div className={styles.divHideColumns}>
-                {Object.keys(tableData[0] || {}).map((key) => (
-                  <label key={key}>
-                    <input
-                      type="checkbox"
-                      checked={visibleKeys.includes(key)}
-                      onChange={() => toggleKeyVisibility(key)}
-                    />
-                    {key}
-                  </label>
-                ))}
+                {/* {Object.keys(tableData[0] || {}).map((key) => ( */}
+                {Object.keys(tableData[0] || {})
+                  .filter((key) => key !== "id")
+                  .map((key) => (
+                    <label key={key}>
+                      <input
+                        type="checkbox"
+                        checked={visibleKeys.includes(key)}
+                        onChange={() => toggleKeyVisibility(key)}
+                      />
+                      {key}
+                    </label>
+                  ))}
               </div>
             </div>
           </div>
@@ -405,17 +358,17 @@ export default function Main() {
             </div>
           </div>
         </div>
+        {isOpenAreYouSure && (
+          <ModalYesNo
+            isModalOpenSetter={setIsOpenAreYouSure}
+            title={modalTitleAndContent.title}
+            // content={`You are about to delete article ID: ${selectedArticle.id}. \n Titled: ${selectedArticle.title}. \n This action cannot be undone.`}
+            content={modalTitleAndContent.content}
+            handleYes={() => handleDelete(selectedId)}
+            handleNo={() => setIsOpenAreYouSure(false)}
+          />
+        )}
       </main>
-      {isOpenAreYouSure && (
-        <ModalYesNo
-          isModalOpenSetter={setIsOpenAreYouSure}
-          title={modalTitleAndContent.title}
-          // content={`You are about to delete article ID: ${selectedArticle.id}. \n Titled: ${selectedArticle.title}. \n This action cannot be undone.`}
-          content={modalTitleAndContent.content}
-          handleYes={() => handleDelete(selectedId)}
-          handleNo={() => setIsOpenAreYouSure(false)}
-        />
-      )}
     </TemplateView>
   );
 }

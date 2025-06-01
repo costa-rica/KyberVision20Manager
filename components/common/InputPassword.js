@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 // import { useDispatch, useSelector } from "react-redux";
-import styles from "../styles/common/InputPassword.module.css";
+import styles from "../../styles/common/InputPassword.module.css";
 
 export default function InputPassword(props) {
   const [passwordVisible, passwordVisibleSetter] = useState(false);

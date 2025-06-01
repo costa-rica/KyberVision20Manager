@@ -143,52 +143,48 @@ export default function PlayersTable() {
 
   return (
     <TemplateView>
-      <div>
-        <main className={styles.main}>
-          <div className={styles.mainTop}>
-            <h1 className={styles.title}>Manage Players</h1>
-            <div>* Note: For new rows do not enter a value for "id"</div>
-          </div>
+      <main className={styles.main}>
+        <div className={styles.mainTop}>
+          <h1 className={styles.title}>Manage Players</h1>
+          <div>* Note: For new rows do not enter a value for "id"</div>
+        </div>
 
-          {/* Player Form */}
-          <div className={styles.formContainer}>
-            <form onSubmit={handleSubmit} className={styles.form}>
-              {Object.keys(formData)
-                .filter(
-                  (field) => field !== "createdAt" && field !== "updatedAt"
-                ) // Exclude timestamps
-                .map((field) => {
-                  const isDateField = field.toLowerCase().includes("date"); // Detect date field
-                  return (
-                    <div key={field} className={styles.inputGroup}>
-                      <label htmlFor={field}>{field}:</label>
-                      <input
-                        type={isDateField ? "date" : "text"}
-                        className={styles.inputField}
-                        onChange={(e) =>
-                          setFormData({ ...formData, [field]: e.target.value })
-                        }
-                        value={formData[field]}
-                        required={field !== "id"}
-                      />
-                    </div>
-                  );
-                })}
-              <button type="submit" className={styles.submitButton}>
-                {formData.id ? "Update Player" : "Create Player"}
-              </button>
-            </form>
-          </div>
+        {/* Player Form */}
+        <div className={styles.formContainer}>
+          <form onSubmit={handleSubmit} className={styles.form}>
+            {Object.keys(formData)
+              .filter((field) => field !== "createdAt" && field !== "updatedAt") // Exclude timestamps
+              .map((field) => {
+                const isDateField = field.toLowerCase().includes("date"); // Detect date field
+                return (
+                  <div key={field} className={styles.inputGroup}>
+                    <label htmlFor={field}>{field}:</label>
+                    <input
+                      type={isDateField ? "date" : "text"}
+                      className={styles.inputField}
+                      onChange={(e) =>
+                        setFormData({ ...formData, [field]: e.target.value })
+                      }
+                      value={formData[field]}
+                      required={field !== "id"}
+                    />
+                  </div>
+                );
+              })}
+            <button type="submit" className={styles.submitButton}>
+              {formData.id ? "Update Player" : "Create Player"}
+            </button>
+          </form>
+        </div>
 
-          {/* Players Table */}
-          <DynamicDbTable
-            columnNames={columns}
-            rowData={playersList}
-            onDeleteRow={handleDelete}
-            selectedRow={handleSelectRow}
-          />
-        </main>
-      </div>
+        {/* Players Table */}
+        <DynamicDbTable
+          columnNames={columns}
+          rowData={playersList}
+          onDeleteRow={handleDelete}
+          selectedRow={handleSelectRow}
+        />
+      </main>
     </TemplateView>
   );
 }

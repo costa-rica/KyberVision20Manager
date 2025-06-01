@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 // import TemplateView from "../../components/TemplateViewOBE";
-import TemplateView from "../../components/common/TemplateView";
+// import TemplateView from "../../components/common/TemplateView";
 
 const AdminDbTable = () => {
   const router = useRouter();
@@ -34,11 +34,7 @@ const AdminDbTable = () => {
     }
   });
 
-  return (
-    <TemplateView>
-      <TableComponent />
-    </TemplateView>
-  );
+  return <TableComponent />;
 };
 
 export default AdminDbTable;

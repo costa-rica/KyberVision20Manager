@@ -28,7 +28,7 @@ export default function TemplateView({ children }) {
   const currentPath = navigator || router.pathname;
 
   return (
-    <>
+    <div className={styles.divTemplateViewScreen}>
       <header
         className={`${styles.headerCustom} ${
           process.env.NEXT_PUBLIC_MODE !== "production"
@@ -67,7 +67,7 @@ export default function TemplateView({ children }) {
           )}
         </div>
       </header>
-      <div className={styles.divMain}>
+      <div className={styles.divTemplateViewMain}>
         <div
           className={styles.divLeftChildren}
           style={{ marginRight: menuOpen ? menuWidth : "0" }}
@@ -109,7 +109,7 @@ export default function TemplateView({ children }) {
               expanded={userReducer.navExpandObject.VolleyballAdmin}
             >
               <NavBarSideLink
-                href="/admin-volleyball/contracts-team-player"
+                href="/admin-volleyball/contract-team-player"
                 label="Contracts Team Player"
                 style={{ padding: "0.25rem" }}
                 currentPath={currentPath}
@@ -251,6 +251,6 @@ export default function TemplateView({ children }) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

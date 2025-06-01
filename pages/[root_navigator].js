@@ -23,7 +23,7 @@ export default function RootNavigator() {
         <p>Table Not Found</p>
       ));
     } else {
-      return Promise.resolve(() => <p>Table Not Found</p>);
+      return Promise.resolve(() => <p>Page Not Found</p>);
     }
   });
 

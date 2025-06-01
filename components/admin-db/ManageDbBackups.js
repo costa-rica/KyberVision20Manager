@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "../../styles/admin-db/AdminDb.module.css";
-// import TemplateView from "../TemplateViewOBE";
+import TemplateView from "../common/TemplateView";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function ManageDbBackups() {

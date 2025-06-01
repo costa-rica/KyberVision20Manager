@@ -10,7 +10,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 const reducers = combineReducers({ user });
 
-const persistConfig = { key: "kyber-vision-web-uploader", storage };
+const persistConfig = { key: "kyber-vision-web-manager", storage };
 const store = configureStore({
   reducer: persistReducer(persistConfig, reducers),
   middleware: (getDefaultMiddleware) =>
@@ -24,15 +24,15 @@ function App({ Component, pageProps }) {
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <Head>
-            <title>KV API15 Manager</title>
-            <meta property="og:title" content="K V API15 Manager" />
+            <title>KV API16 Manager</title>
+            <meta property="og:title" content="K V API16 Manager" />
             <meta
               property="og:description"
               content="KV website to assist with the mobile and mobile API development"
             />
             <meta
               property="og:image"
-              content="https://kv15-manager.dashanddata.com/images/KyberV2Shiny.png"
+              content="https://kv16-manager.dashanddata.com/images/KyberV2Shiny.png"
             />
           </Head>
           <Component {...pageProps} />

@@ -225,20 +225,7 @@ export default function Main() {
       <main className={styles.main}>
         <div className={styles.divMain}>
           <div className={styles.divTop}>
-            <h1>Admin Database</h1>
-            <div className={styles.divLinks}>
-              <ul>
-                <li>
-                  <a href="/admin-db/manage-db-backups">Manage DB Backups</a>
-                </li>
-                <li>
-                  <a href="/admin-db/manage-db-uploads">Manage DB Uploads</a>
-                </li>
-                <li>
-                  <a href="/admin-db/manage-db-deletes">Manage DB Deletes</a>
-                </li>
-              </ul>
-            </div>
+            <h1>Database Tables</h1>
 
             <div className={styles.divControls}>
               {/* Dropdown for selecting table */}
@@ -252,22 +239,28 @@ export default function Main() {
                     <option value="User">User</option>
                     <option value="Video">Video</option>
                     <option value="Action">Action</option>
-                    <option value="CompetitionContract">
-                      CompetitionContract
-                    </option>
-                    <option value="Complex">Complex</option>
-                    <option value="GroupContract">GroupContract</option>
+                    <option value="Script">Script</option>
                     <option value="League">League</option>
-                    <option value="Match">Match</option>
+                    <option value="Session">Session</option>
+                    <option value="Player">Player</option>
+                    <option value="Team">Team</option>
+                    <option value="ContractTeamUser">
+                      ContractTeamUser (tribe)
+                    </option>
+                    <option value="ContractTeamPlayer">
+                      ContractTeamPlayer
+                    </option>
+                    <option value="ContractScriptVideo">
+                      ContractScriptVideo
+                    </option>
+                    <option value="ContractLeagueTeam">
+                      ContractLeagueTeam
+                    </option>
+                    <option value="Point">Point</option>
                     <option value="OpponentServeTimestamp">
                       OpponentServeTimestamp
                     </option>
-                    <option value="Player">Player</option>
-                    <option value="PlayerContract">PlayerContract</option>
-                    <option value="Point">Point</option>
-                    <option value="Script">Script</option>
-                    <option value="SyncContract">SyncContract</option>
-                    <option value="Team">Team</option>
+                    <option value="Complex">Complex</option>
                   </select>
                 </div>
               </div>

@@ -1,6 +1,6 @@
-/// old /components/forgot-password/ResetPassword.js
+/// old /components/ManageUser/ResetPassword.js
 
-// /components/forgot-password/ResetPassword.js
+// /components/ManageUser/ResetPassword.js
 import { useState } from "react";
 import { useRouter } from "next/router";
 import styles from "../../styles/ResetPassword.module.css";

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import ResetPassword from "../../../components/forgot-password/ResetPassword";
+import ResetPassword from "../../../components/ManageUser/ResetPassword";
 
 const ResetPasswordPage = () => {
   const router = useRouter();

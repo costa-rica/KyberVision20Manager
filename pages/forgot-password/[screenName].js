@@ -7,7 +7,7 @@ const ForgotPassword = () => {
 
   const ScreenComponent = dynamic(() =>
     screenName === "reset-successful"
-      ? import("../../components/forgot-password/ResetSuccess")
+      ? import("../../components/ManageUser/ResetSuccess")
       : Promise.resolve(() => <p>Screen Not Found</p>)
   );
 

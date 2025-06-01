@@ -1,5 +1,5 @@
-// OLD /components/forgot-password/ResetSuccess.js
-// /components/forgot-password/ResetSuccess.js
+// OLD /components/ManageUser/ResetSuccess.js
+// /components/ManageUser/ResetSuccess.js
 import styles from "../../styles/Register.module.css";
 import Image from "next/image";
 

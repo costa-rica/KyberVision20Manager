@@ -80,7 +80,7 @@ export default function Main() {
             style={{ width: `${tableWidth / totalColumns}rem` }}
             className={[styles.divTableCell]}
           >
-            {key.startsWith("is")
+            {key.startsWith("is") || key.startsWith("processing")
               ? info.getValue()
                 ? "true"
                 : "false"

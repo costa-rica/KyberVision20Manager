@@ -1,4 +1,4 @@
-import styles from "../../styles/ScriptingAndVideo/VideosTable.module.css";
+import styles from "../../styles/ScriptingAndVideo/VideoUpload.module.css";
 import { useDispatch, useSelector } from "react-redux";
 // import { setNewVideoId } from "../reducers/user";
 import { useRouter } from "next/router";
@@ -10,9 +10,9 @@ import {
   faRectangleXmark,
   faCircleMinus,
 } from "@fortawesome/free-solid-svg-icons";
-export default function VideosTable() {
+export default function VideoUpload() {
   const [file, setFile] = useState(null);
-  const [matchId, setMatchId] = useState("");
+  const [sessionId, setSessionId] = useState("");
 
   const [videosArray, setVideosArray] = useState([]);
   const [isUploading, setIsUploading] = useState(false); // Modal state
@@ -51,11 +51,12 @@ export default function VideosTable() {
         id: `${elem.id}`,
         name: `${elem.matchName}`,
         date: elem.date,
-        matchName: `${elem.matchId}`,
+        sessionId: `${elem.id}`,
         scripted: false,
-        durationOfMatch: elem.durationString,
+        sessionDate: elem.session.sessionDate,
         filename: elem.filename,
-        processingStatus: elem.processingStatus,
+        processingCompleted: elem.processingCompleted,
+        processingFailed: elem.processingFailed,
       }));
       console.log(videosObjArray);
       setVideosArray(videosObjArray);
@@ -71,7 +72,7 @@ export default function VideosTable() {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmitAndUploadVideo = async (e) => {
     e.preventDefault();
     if (!file) {
       alert("Please select a file to upload.");
@@ -83,7 +84,7 @@ export default function VideosTable() {
 
     const formData = new FormData();
     formData.append("video", file);
-    formData.append("matchId", matchId);
+    formData.append("sessionId", sessionId);
 
     const xhr = new XMLHttpRequest();
     let api_url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/videos/upload`;
@@ -163,7 +164,7 @@ export default function VideosTable() {
 
           {/* Upload Form */}
           <div className={styles.formContainer}>
-            <form onSubmit={handleSubmit} className={styles.form}>
+            <form onSubmit={handleSubmitAndUploadVideo} className={styles.form}>
               <div className={styles.inputGroup}>
                 <label htmlFor="videoFileUpload">Upload Video:</label>
                 <input
@@ -176,14 +177,14 @@ export default function VideosTable() {
               </div>
 
               <div className={styles.inputGroup}>
-                <label htmlFor="matchId">Match ID:</label>
+                <label htmlFor="sessionId">Session ID:</label>
                 <input
                   className={styles.inputField}
                   onChange={(e) => {
-                    setMatchId(e.target.value);
-                    console.log(`matchId: ${e.target.value}`);
+                    setSessionId(e.target.value);
+                    console.log(`sessionId: ${e.target.value}`);
                   }}
-                  value={matchId}
+                  value={sessionId}
                   required
                 />
               </div>

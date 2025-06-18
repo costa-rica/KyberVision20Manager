@@ -19,10 +19,11 @@ export default function Table03Videos(props) {
       <table className={styles.tableVideos}>
         <thead>
           <tr>
-            <th> Date</th>
             <th className={styles.theadTr}>Video Filename</th>
-            <th> Match Name</th>
-            <th> Process Status</th>
+            <th> Session Date</th>
+            <th> Session ID</th>
+            <th> Process Completed</th>
+            <th> Process Failed</th>
             <th>Delete</th>
           </tr>
         </thead>
@@ -30,17 +31,22 @@ export default function Table03Videos(props) {
           {props.videosArray.map((elem, index) => {
             return (
               <tr key={index}>
-                <td>{elem.date}</td>
                 <td className={styles.tdFilename}>
                   {elem.filename}
                   <div className={styles.divTdVideoId}>
                     (videoId: {elem.id})
                   </div>
                 </td>
-                <td>{elem.matchName}</td>
-                <td>{elem.processingStatus}</td>
+                <td>{elem.sessionDate}</td>
+                <td style={{ textAlign: "center" }}>{elem.sessionId}</td>
+                <td style={{ textAlign: "center" }}>
+                  {elem.processingCompleted ? "true" : "false"}
+                </td>
+                <td style={{ textAlign: "center" }}>
+                  {elem.processingFailed ? "true" : "false"}
+                </td>
                 <td className={styles.tdRemove}>
-                  {elem.processingStatus === "processed" ? (
+                  {elem.processingCompleted ? (
                     <div className={styles.divTdRemove}>
                       <FontAwesomeIcon
                         icon={faCircleMinus}

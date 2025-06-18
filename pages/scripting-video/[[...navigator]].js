@@ -24,7 +24,7 @@ const AdminDbTable = () => {
         () => () => <p>Table Not Found</p>
       );
     } else if (route === "videos") {
-      return import(`../../components/ScriptingAndVideo/VideosTable`).catch(
+      return import(`../../components/ScriptingAndVideo/VideoUpload`).catch(
         () => () => <p>Table Not Found</p>
       );
     } else {

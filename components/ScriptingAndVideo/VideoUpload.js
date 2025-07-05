@@ -28,10 +28,10 @@ export default function VideoUpload() {
     if (!userReducer.token) {
       router.push("/login");
     }
-    fetchVideoListApiCall();
+    fetchVideoArray();
   }, [userReducer]);
 
-  const fetchVideoListApiCall = async () => {
+  const fetchVideoArray = async () => {
     console.log(`API URL: ${process.env.NEXT_PUBLIC_API_BASE_URL}/videos`);
 
     const response = await fetch(
@@ -115,7 +115,7 @@ export default function VideoUpload() {
         setUploadProgress(100); // Ensure progress reaches 100%
         setTimeout(() => {
           setIsUploading(false); // Hide modal
-          fetchVideoListApiCall(); // Refresh video list
+          fetchVideoArray(); // Refresh video list
           window.location.reload(); // Refresh the entire page
         }, 2000); // Small delay for user feedback
       } else {
@@ -156,7 +156,7 @@ export default function VideoUpload() {
       // body: JSON.stringify({ videoId: videoObj.id }),
     });
     if (response.status == 200) {
-      fetchVideoListApiCall();
+      fetchVideoArray();
       const resJson = await response.json();
       window.alert(resJson.message);
       setDeleteModalIsOpen(false);

@@ -46,7 +46,7 @@ export default function Table03Videos(props) {
                   {elem.processingFailed ? "true" : "false"}
                 </td>
                 <td className={styles.tdRemove}>
-                  {elem.processingCompleted ? (
+                  {elem.processingCompleted || elem.processingFailed ? (
                     <div className={styles.divTdRemove}>
                       <FontAwesomeIcon
                         icon={faCircleMinus}

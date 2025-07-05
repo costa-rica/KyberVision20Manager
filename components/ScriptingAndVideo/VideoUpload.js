@@ -119,7 +119,18 @@ export default function VideoUpload() {
           window.location.reload(); // Refresh the entire page
         }, 2000); // Small delay for user feedback
       } else {
-        alert(`Error: ${xhr.status} - ${xhr.statusText}`);
+        // alert(`Error: ${xhr.status} - ${xhr.statusText}`);
+        // setIsUploading(false);
+        try {
+          const responseJson = JSON.parse(xhr.responseText);
+          const message =
+            responseJson?.message || `Unexpected error (status: ${xhr.status})`;
+          alert(`Upload failed: ${message}`);
+        } catch (err) {
+          alert(
+            `Upload failed. Could not parse error response. Status: ${xhr.status}`
+          );
+        }
         setIsUploading(false);
       }
     };
@@ -253,7 +264,7 @@ export default function VideoUpload() {
                     <div> Filename: {deleteVideoObj.filename} </div>
 
                     <div className={styles.divModalPort}>
-                      Match ID: {deleteVideoObj.matchName}
+                      Session ID: {deleteVideoObj.sessionId}
                     </div>
 
                     <div>{deleteVideoObj.date}</div>

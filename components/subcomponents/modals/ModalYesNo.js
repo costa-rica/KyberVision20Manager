@@ -26,7 +26,7 @@ export default function ModalYesNo(props) {
             {props.noOptionText || "Cancel"}
           </button>
           <button
-            className={styles.button}
+            className={styles.btnYes}
             onClick={() => {
               props.handleYes();
               props.isModalOpenSetter(false);

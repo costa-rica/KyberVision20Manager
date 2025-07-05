@@ -29,6 +29,7 @@ body {
   --bg-login-left: #d9d9d9;
   --bg-navbar-top: #283a59;
   --bg-input-off-white: #dddddd;
+  --highlight-red: #8b0419;
 
   /* Added 2025-05-31 : KV 16 refactor*/
   --input-border-radius: 0.5rem;

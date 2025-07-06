@@ -9,7 +9,7 @@ export default function ContractsScriptsVideoTable() {
   const [formData, setFormData] = useState({
     scriptId: "",
     videoId: "",
-    deltaTime: "",
+    deltaTimeInSeconds: "",
   });
 
   // const [syncContractsList, setSyncContractsList] = useState([]);
@@ -69,7 +69,7 @@ export default function ContractsScriptsVideoTable() {
       setFormData({
         scriptId: "",
         videoId: "",
-        deltaTime: "",
+        deltaTimeInSeconds: "",
       });
       fetchContractsScriptVideoArray();
     } else {

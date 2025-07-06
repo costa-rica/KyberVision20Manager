@@ -11,7 +11,7 @@ export default function ScriptsTable() {
   const [formData, setFormData] = useState({
     scriptId: "",
     videoId: "",
-    deltaTime: "",
+    deltaTimeInSeconds: "",
   });
 
   const [scriptsArray, setScriptsArray] = useState([]);
@@ -68,7 +68,7 @@ export default function ScriptsTable() {
       setFormData({
         scriptId: "",
         videoId: "",
-        deltaTime: "",
+        deltaTimeInSeconds: "",
       });
       fetchSyncContractsList();
     } else {

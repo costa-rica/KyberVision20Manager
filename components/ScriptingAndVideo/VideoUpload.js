@@ -51,7 +51,7 @@ export default function VideoUpload() {
         id: `${elem.id}`,
         name: `${elem.matchName}`,
         date: elem.date,
-        sessionId: `${elem.id}`,
+        sessionId: `${elem.sessionId}`,
         scripted: false,
         sessionDate: elem.session.sessionDate,
         filename: elem.filename,

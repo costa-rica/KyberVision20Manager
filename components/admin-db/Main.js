@@ -112,7 +112,14 @@ export default function Main() {
       ),
     });
 
-    setTableColumns([columnId, ...dynamicCols, deleteColumn]);
+    // setTableColumns([columnId, ...dynamicCols, deleteColumn]);
+    const isDummyRow = tableData.length === 1 && tableData[0].id === null;
+
+    const columns = isDummyRow
+      ? [columnId, ...dynamicCols] // omit deleteColumn
+      : [columnId, ...dynamicCols, deleteColumn];
+
+    setTableColumns(columns);
   }, [tableData, visibleKeys]);
 
   useEffect(() => {

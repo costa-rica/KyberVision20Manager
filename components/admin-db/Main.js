@@ -257,11 +257,14 @@ export default function Main() {
                     <option value="ContractTeamPlayer">
                       ContractTeamPlayer
                     </option>
-                    <option value="ContractScriptVideo">
-                      ContractScriptVideo
+                    <option value="ContractVideoAction">
+                      ContractVideoAction
                     </option>
                     <option value="ContractLeagueTeam">
                       ContractLeagueTeam
+                    </option>
+                    <option value="ContractPlayerUser">
+                      ContractPlayerUser
                     </option>
                     <option value="Point">Point</option>
                     <option value="OpponentServeTimestamp">

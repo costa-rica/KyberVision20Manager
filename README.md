@@ -1,6 +1,6 @@
 # Kyber Vision API Manager
 
-#### 0.17.0
+#### 0.18.0
 
 ## .env
 
@@ -15,11 +15,11 @@ NEXT_PUBLIC_APP_NAME=KyberVisionAPI17Manager
 
 ```
     {
-      name: "KyberVisionAPI17Manager",
+      name: "KyberVision18APIManager",
       script: "yarn",
       args: "start",
       interpreter: "/bin/bash",
-      cwd: "/home/applications/KyberVisionAPI17Manager/",
+      cwd: "/home/applications/KyberVision18APIManager/",
       log_date_format: "YYYY-MM-DD HH:mm Z",
       out_file: "/home/.pm2/logs/combined.log", // Standard output log
       error_file: "/home/.pm2/logs/combined-error.log", // Error log

@@ -5,8 +5,8 @@
 ## .env
 
 ```
-NEXT_PUBLIC_API_BASE_URL=https://api.kv16.dashanddata.com
-NEXT_PUBLIC_APP_NAME=KyberVisionAPI17Manager
+NEXT_PUBLIC_API_BASE_URL=https://api.kv18.dashanddata.com
+NEXT_PUBLIC_APP_NAME=KyberVisionAPI18Manager
 ```
 
 ## install on server

@@ -266,6 +266,9 @@ export default function Main() {
                     <option value="ContractPlayerUser">
                       ContractPlayerUser
                     </option>
+                    <option value="ContractUserAction">
+                      ContractUserAction (favorites)
+                    </option>
                     <option value="Point">Point</option>
                     <option value="OpponentServeTimestamp">
                       OpponentServeTimestamp

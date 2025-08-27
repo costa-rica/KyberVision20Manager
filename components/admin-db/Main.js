@@ -274,6 +274,9 @@ export default function Main() {
                       OpponentServeTimestamp
                     </option>
                     <option value="Complex">Complex</option>
+                    <option value="PendingInvitations">
+                      PendingInvitations
+                    </option>
                   </select>
                 </div>
               </div>

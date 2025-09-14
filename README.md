@@ -1,12 +1,12 @@
 # Kyber Vision API Manager
 
-#### 0.18.0
+#### 0.20.0
 
 ## .env
 
 ```
-NEXT_PUBLIC_API_BASE_URL=https://api.kv18.dashanddata.com
-NEXT_PUBLIC_APP_NAME=KyberVisionAPI18Manager
+NEXT_PUBLIC_API_BASE_URL=https://api.kv20.dashanddata.com
+NEXT_PUBLIC_APP_NAME=KyberVisionAPI20Manager
 ```
 
 ## install on server
@@ -15,11 +15,11 @@ NEXT_PUBLIC_APP_NAME=KyberVisionAPI18Manager
 
 ```
     {
-      name: "KyberVision18APIManager",
+      name: "KyberVision20Manager",
       script: "yarn",
       args: "start",
       interpreter: "/bin/bash",
-      cwd: "/home/applications/KyberVision18APIManager/",
+      cwd: "/home/applications/KyberVision20Manager/",
       log_date_format: "YYYY-MM-DD HH:mm Z",
       out_file: "/home/.pm2/logs/combined.log", // Standard output log
       error_file: "/home/.pm2/logs/combined-error.log", // Error log

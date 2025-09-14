@@ -12,34 +12,34 @@ const reducers = combineReducers({ user });
 
 const persistConfig = { key: "kyber-vision-web-manager", storage };
 const store = configureStore({
-  reducer: persistReducer(persistConfig, reducers),
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }),
+	reducer: persistReducer(persistConfig, reducers),
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({ serializableCheck: false }),
 });
 const persistor = persistStore(store);
 
 function App({ Component, pageProps }) {
-  return (
-    <>
-      <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          <Head>
-            <title>KV API18 Manager</title>
-            <meta property="og:title" content="K V API18 Manager" />
-            <meta
-              property="og:description"
-              content="KV website to assist with the mobile and mobile API development"
-            />
-            <meta
-              property="og:image"
-              content="https://kv16-manager.dashanddata.com/images/KyberV2Shiny.png"
-            />
-          </Head>
-          <Component {...pageProps} />
-        </PersistGate>
-      </Provider>
-    </>
-  );
+	return (
+		<>
+			<Provider store={store}>
+				<PersistGate persistor={persistor}>
+					<Head>
+						<title>KV API20 Manager</title>
+						<meta property="og:title" content="K V API20 Manager" />
+						<meta
+							property="og:description"
+							content="KV website to assist with the mobile and mobile API development"
+						/>
+						<meta
+							property="og:image"
+							content="https://kv20-manager.dashanddata.com/images/KyberV2Shiny.png"
+						/>
+					</Head>
+					<Component {...pageProps} />
+				</PersistGate>
+			</Provider>
+		</>
+	);
 }
 
 export default App;
